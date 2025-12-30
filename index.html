@@ -71,12 +71,6 @@
 
     .hero {
       margin-top: 18px;
-      display:grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap: 14px;
-    }
-    @media (max-width: 920px) {
-      .hero { grid-template-columns: 1fr; }
     }
     .playerTop { padding: 14px 14px 10px; }
     .nowTitle { font-size: 16px; font-weight: 750; margin:0 0 6px; }
@@ -121,9 +115,16 @@
     }
     .thumb:hover { transform: translateY(-1px); border-color: var(--line2); }
     .thumbImg { width:100%; aspect-ratio: 16/9; object-fit: cover; display:block; background:#000; }
-    .thumbBody { padding: 10px 10px 12px; }
-    .thumbTitle { font-size: 13px; font-weight: 750; margin:0 0 6px; line-height:1.25; }
-    .thumbMeta { font-size: 11px; color: var(--text3); margin:0; }
+    .thumbCapWrap{ position:relative; }
+    .thumbCap{
+      position:absolute; left:10px; right:10px; bottom:10px;
+      padding:8px 10px; border-radius:12px;
+      background: rgba(0,0,0,.55);
+      border: 1px solid rgba(255,255,255,.10);
+      backdrop-filter: blur(6px);
+    }
+    .thumbCapTitle{ margin:0; font-size:13px; font-weight:800; letter-spacing:.2px; }
+    .thumbCapSub{ margin:4px 0 0; font-size:11px; color: rgba(255,255,255,.72); }
 
     .content {
       padding: 16px;
@@ -226,13 +227,18 @@
 
     <div class="sectionTitle">
       <h2>GALLERY</h2>
-      <p class="hint">썸네일 클릭 → 메인 플레이어로 확대 재생</p>
+      <p class="hint">썸네일(아티스트명) 클릭 → 메인 플레이어로 확대 재생</p>
     </div>
     <div class="grid" id="grid"></div>
 
     <section id="about" class="card" style="margin-top:24px;">
       <div class="content">
         <p class="miniTitle">About</p>
+
+        <div class="card" style="border-radius:14px; margin: 10px 0 14px;">
+          <img src="about-visual.png" alt="TIKOONZ TV visual" style="width:100%; display:block; aspect-ratio: 16/6; object-fit: cover; background:#000;">
+        </div>
+
         <p>
           <strong>TIKOONZ TV</strong>는 힙합, EDM, K-POP을 포함한 동시대 음악을
           <strong>음악 전문 교수</strong>와 <strong>산업 관계자</strong>가 함께 분석하고 논의하는 한국어 기반 음악 토크 플랫폼입니다.
@@ -335,52 +341,115 @@
   </footer>
 
   <script>
-    const MAIN_VIDEO = { id: "k6vBizqAXBs", title: "Main Feature", meta: "TIKOONZ TV" };
-    const VIDEOS = [
-      { id: "2_ZXLTNgjeg", title: "Archive 01", meta: "TIKOONZ TV · Archive" },
+  // Main player video (NOT part of gallery thumbnails)
+  const MAIN_VIDEO = { id: "k6vBizqAXBs", title: "Main Feature", meta: "TIKOONZ TV" };
+
+  // Gallery videos (Archive) — title is the caption shown on thumbnails.
+  // TIP: Replace "ARTIST NAME 1/2" with the real artist names to keep captions clean.
+  const VIDEOS = [
+{ id: "2_ZXLTNgjeg", title: "Archive 01", meta: "TIKOONZ TV · Archive" },
       { id: "jBWnWCUseyI", title: "Archive 02", meta: "TIKOONZ TV · Archive" },
       { id: "dg194QhkGE0", title: "Archive 03", meta: "TIKOONZ TV · Archive" },
       { id: "dwNzAA-G5a8", title: "Archive 04", meta: "TIKOONZ TV · Archive" },
       { id: "lRFQZs2mR-I", title: "Archive 05", meta: "TIKOONZ TV · Archive" },
       { id: "Uy6KpYZeERI", title: "Archive 06", meta: "TIKOONZ TV · Archive" },
-    ];
+      { id: "K1fF0DFRJKw", title: "ARTIST NAME 1", meta: "TIKOONZ TV · Archive" },
+      { id: "Hg0ZsqPn084", title: "ARTIST NAME 2", meta: "TIKOONZ TV · Archive" },
+  ];
 
-    const ORIGIN = encodeURIComponent(location.origin);
-    const makeEmbedUrl = (id) =>
-      `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1&playsinline=1&origin=${ORIGIN}`;
+  // Playback queue: main video first: then gallery videos. Continues endlessly.
+  const QUEUE = [MAIN_VIDEO, ...VIDEOS];
+  let currentIndex = 0;
+  let ytPlayer = null;
 
-    const player = document.getElementById("player");
-    const nowTitle = document.getElementById("nowTitle");
-    const nowMeta = document.getElementById("nowMeta");
-    const grid = document.getElementById("grid");
+  // Render gallery thumbnails
+  const grid = document.getElementById("grid");
+  function thumbUrl(id) {
+    return `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+  }
 
-    function setNow(video) {
-      nowTitle.textContent = video.title;
-      nowMeta.textContent = video.meta;
-      player.src = makeEmbedUrl(video.id);
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    function thumbUrl(id) {
-      return `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
-    }
-
+  function renderGallery() {
     VIDEOS.forEach((v) => {
       const card = document.createElement("div");
       card.className = "thumb";
       card.innerHTML = `
-        <img class="thumbImg" src="${thumbUrl(v.id)}" alt="${v.title}">
-        <div class="thumbBody">
-          <p class="thumbTitle">${v.title}</p>
-          <p class="thumbMeta">${v.meta}</p>
+        <div class="thumbCapWrap">
+          <img class="thumbImg" src="${thumbUrl(v.id)}" alt="${v.title}">
+          <div class="thumbCap">
+            <p class="thumbCapTitle">${v.title}</p>
+            <p class="thumbCapSub">${v.meta}</p>
+          </div>
         </div>
       `;
-      card.addEventListener("click", () => setNow(v));
+      card.addEventListener("click", () => {
+        // jump to this video in the queue (offset by 1 because main is at index 0)
+        currentIndex = 1 + VIDEOS.findIndex(x => x.id === v.id);
+        loadCurrent(true);
+      });
       grid.appendChild(card);
     });
+  }
 
-    // Default main player
-    player.src = makeEmbedUrl(MAIN_VIDEO.id);
-  </script>
+  // Update hero text and load video
+  const nowTitle = document.getElementById("nowTitle");
+  const nowMeta = document.getElementById("nowMeta");
+
+  function loadCurrent(autoplay = true) {
+    const v = QUEUE[currentIndex];
+    if (nowTitle) nowTitle.textContent = v.title;
+    if (nowMeta) nowMeta.innerHTML = "힙합·EDM·K-POP 등 동시대 음악을 <strong>음악 전문 교수</strong>와 <strong>산업 관계자</strong>가 함께 논의하는 한국어 음악 토크 플랫폼.";
+    if (ytPlayer) {
+      ytPlayer.loadVideoById({ videoId: v.id, suggestedQuality: "hd1080" });
+      if (!autoplay) ytPlayer.pauseVideo();
+    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function nextVideo() {
+    currentIndex = (currentIndex + 1) % QUEUE.length;
+    loadCurrent(true);
+  }
+
+  // YouTube IFrame API (enables "play next automatically" when a video ends)
+  function onYouTubeIframeAPIReady() {
+    ytPlayer = new YT.Player("player", {
+      videoId: MAIN_VIDEO.id,
+      playerVars: {
+        autoplay: 1,
+        playsinline: 1,
+        rel: 0,
+        modestbranding: 1,
+        // If looping is supported in the environment, this will loop the *current* video.
+        // We still keep the "next video" logic as a fallback and for continuous playback.
+        loop: 1,
+        playlist: MAIN_VIDEO.id,
+        origin: window.location.origin
+      },
+      events: {
+        onReady: () => {
+          // Start with the main video
+          currentIndex = 0;
+          loadCurrent(true);
+        },
+        onStateChange: (e) => {
+          // If the video ends, play next in queue (endless)
+          if (e.data === YT.PlayerState.ENDED) {
+            nextVideo();
+          }
+        }
+      }
+    });
+  }
+
+  // Expose API callback globally
+  window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
+
+  // Init
+  renderGallery();
+
+  // Load YT API
+  const tag = document.createElement("script");
+  tag.src = "https://www.youtube.com/iframe_api";
+  document.head.appendChild(tag);
+</script>
 </body>
-</html>

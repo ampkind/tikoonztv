@@ -43,6 +43,7 @@ header{
 nav{display:flex;align-items:center;gap:16px;font-size:14px;color:var(--text2);}
 nav a{padding:8px 10px;border-radius:10px;border:1px solid transparent;}
 nav a:hover{border-color:var(--line2);background:rgba(255,255,255,.03);}
+nav a.active{border-color:rgba(255,255,255,.16);background:rgba(255,255,255,.03);}
 
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;}
 .ratio{position:relative;width:100%;padding-top:56.25%;background:#000;} /* 16:9 */
@@ -70,17 +71,19 @@ footer{margin-top:28px;border-top:1px solid var(--line);padding:18px 0 26px;colo
 </style>
 </head>
 <body>
+
 <header>
   <div class="headInner">
     <a class="brand" href="index.html" aria-label="TIKOONZ TV Home">
       <img src="tikoonz-logo.png" alt="TIKOONZ" />
     </a>
     <nav aria-label="Primary">
-      <a href="about.html">About</a>
-      <a href="shows.html">Shows</a>
+      <a class="" href="about.html">About</a>
+      <a class="" href="shows.html">Shows</a>
     </nav>
   </div>
 </header>
+
 
 <main class="wrap">
   <section class="card">
@@ -104,6 +107,7 @@ footer{margin-top:28px;border-top:1px solid var(--line);padding:18px 0 26px;colo
 
 
 <script>
+  // Index: plays through the queue, then returns to the first video.
   const MAIN_VIDEO = { id: "k6vBizqAXBs" };
   const VIDEOS = [
     { id: "2_ZXLTNgjeg" },

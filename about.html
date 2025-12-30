@@ -43,6 +43,7 @@ header{
 nav{display:flex;align-items:center;gap:16px;font-size:14px;color:var(--text2);}
 nav a{padding:8px 10px;border-radius:10px;border:1px solid transparent;}
 nav a:hover{border-color:var(--line2);background:rgba(255,255,255,.03);}
+nav a.active{border-color:rgba(255,255,255,.16);background:rgba(255,255,255,.03);}
 
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;}
 .ratio{position:relative;width:100%;padding-top:56.25%;background:#000;} /* 16:9 */
@@ -70,17 +71,19 @@ footer{margin-top:28px;border-top:1px solid var(--line);padding:18px 0 26px;colo
 </style>
 </head>
 <body>
+
 <header>
   <div class="headInner">
     <a class="brand" href="index.html" aria-label="TIKOONZ TV Home">
       <img src="tikoonz-logo.png" alt="TIKOONZ" />
     </a>
     <nav aria-label="Primary">
-      <a href="about.html" style="border-color: rgba(255,255,255,.16); background: rgba(255,255,255,.03);">About</a>
-      <a href="shows.html">Shows</a>
+      <a class="active" href="about.html">About</a>
+      <a class="" href="shows.html">Shows</a>
     </nav>
   </div>
 </header>
+
 
 <main class="wrap">
   <section class="card">
@@ -98,15 +101,15 @@ footer{margin-top:28px;border-top:1px solid var(--line);padding:18px 0 26px;colo
     <div class="content">
       <p class="sectionLabel">About</p>
 
-      <p><strong>TIKOONZ TV</strong> is a Korean-based music talk platform where professors and industry professionals examine contemporary music — from Hip-Hop and EDM to K‑POP.</p>
+      <p><strong>TIKOONZ TV</strong> is a Korean-based music talk platform where professors and industry professionals examine contemporary music — from Hip-Hop and EDM to K-POP.</p>
 
-      <p>We don’t simply introduce tracks. We unpack structure, production choices, sonic references, and the cultural context behind the sound. Each episode is designed to be informative, precise, and enjoyable — without losing depth.</p>
+      <p>We don’t simply introduce tracks. We unpack structure, production choices, sonic references, and the cultural context behind the sound. Each episode is designed to be clear, precise, and enjoyable — without losing depth.</p>
 
       <p>Our goal is to build an archive that can be revisited: a place where conversations remain valuable after the moment passes. In a landscape driven by speed, we focus on continuity — documenting how scenes evolve, how artists develop, and how audiences listen.</p>
 
-      <p>TIKOONZ TV is also a bridge between academia and the field. We bring analysis, history, and critical listening into direct conversation with industry insights — creating a format that can speak to fans, creators, and professionals alike.</p>
+      <p>TIKOONZ TV is a bridge between academia and the field. We bring analysis, history, and critical listening into direct conversation with industry insights — creating a format that speaks to fans, creators, and professionals alike.</p>
 
-      <p>Shows are curated and sequenced to play continuously, like a channel rather than a playlist. As the library grows, the site becomes not just a collection, but a living map of contemporary music culture.</p>
+      <p>As the library grows, the site becomes not just a collection, but a living map of contemporary music culture — curated, sequenced, and built for long-term viewing.</p>
     </div>
   </section>
 </main>
@@ -122,7 +125,6 @@ footer{margin-top:28px;border-top:1px solid var(--line);padding:18px 0 26px;colo
     </div>
   </div>
 </footer>
-
 
 </body>
 </html>

@@ -107,7 +107,6 @@ footer{margin-top:28px;border-top:1px solid var(--line);padding:18px 0 26px;colo
 
 
 <script>
-  // Index: plays through the queue, then returns to the first video.
   const MAIN_VIDEO = { id: "k6vBizqAXBs" };
   const VIDEOS = [
     { id: "2_ZXLTNgjeg" },
@@ -154,33 +153,56 @@ footer{margin-top:28px;border-top:1px solid var(--line);padding:18px 0 26px;colo
     loadCurrent(true);
   }
 
+  function ensureFallbackIfNeeded() {
+    // If API blocked (often on file://), inject a plain iframe fallback.
+    const host = document.getElementById("player");
+    if (!host) return;
+    if (host.querySelector("iframe")) return;
+    host.innerHTML = `
+      <iframe class="video"
+        src="https://www.youtube-nocookie.com/embed/${MAIN_VIDEO.id}?autoplay=1&rel=0&modestbranding=1&playsinline=1"
+        title="TIKOONZ TV"
+        allow="autoplay; encrypted-media; picture-in-picture"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen></iframe>`;
+  }
+
   function onYouTubeIframeAPIReady() {
-    ytPlayer = new YT.Player("player", {
-      videoId: MAIN_VIDEO.id,
-      playerVars: {
-        autoplay: 1,
-        playsinline: 1,
-        rel: 0,
-        modestbranding: 1,
-        origin: window.location.origin
-      },
-      events: {
-        onReady: () => {
-          currentIndex = 0;
-          loadCurrent(true);
+    try {
+      ytPlayer = new YT.Player("player", {
+        videoId: MAIN_VIDEO.id,
+        playerVars: {
+          autoplay: 1,
+          playsinline: 1,
+          rel: 0,
+          modestbranding: 1
         },
-        onStateChange: (e) => {
-          if (e.data === YT.PlayerState.ENDED) nextVideo();
+        events: {
+          onReady: () => {
+            currentIndex = 0;
+            loadCurrent(true);
+            try { ytPlayer.playVideo(); } catch(e) {}
+          },
+          onStateChange: (e) => {
+            if (e.data === YT.PlayerState.ENDED) nextVideo();
+          },
+          onError: () => ensureFallbackIfNeeded()
         }
-      }
-    });
+      });
+    } catch (e) {
+      ensureFallbackIfNeeded();
+    }
   }
   window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
 
   renderGallery();
   const tag = document.createElement("script");
   tag.src = "https://www.youtube.com/iframe_api";
+  tag.onerror = ensureFallbackIfNeeded;
   document.head.appendChild(tag);
+
+  // If nothing loads after a moment, fallback.
+  setTimeout(ensureFallbackIfNeeded, 1200);
 </script>
 </body>
 </html>

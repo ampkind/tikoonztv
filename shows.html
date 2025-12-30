@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Shows · TIKOONZ TV</title>
+  <style>
+:root {
+  --max: 1120px;
+  --bg: #0b0b0f;
+  --card: #141420;
+  --line: rgba(255,255,255,.10);
+  --line2: rgba(255,255,255,.16);
+  --text2: rgba(255,255,255,.78);
+  --text3: rgba(255,255,255,.62);
+  --radius: 16px;
+}
+
+  </div>
+</main>
+
+<footer>
+  <div class="footInner">
+    <div>© TIKOONZ TV</div>
+    <div class="footLinks">
+      <a href="https://tikoonz.com" target="_blank" rel="noopener">TIKOONZ</a>
+      <a href="https://tikoonz.shop" target="_blank" rel="noopener">Shop</a>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  const VIDEOS = [
+      { id: "2_ZXLTNgjeg", title: "ARTIST 01", meta: "TIKOONZ TV · Archive" },
+      { id: "jBWnWCUseyI", title: "ARTIST 02", meta: "TIKOONZ TV · Archive" },
+      { id: "dg194QhkGE0", title: "ARTIST 03", meta: "TIKOONZ TV · Archive" },
+      { id: "dwNzAA-G5a8", title: "ARTIST 04", meta: "TIKOONZ TV · Archive" },
+      { id: "lRFQZs2mR-I", title: "ARTIST 05", meta: "TIKOONZ TV · Archive" },
+      { id: "Uy6KpYZeERI", title: "ARTIST 06", meta: "TIKOONZ TV · Archive" },
+      { id: "K1fF0DFRJKw", title: "ARTIST NAME 1", meta: "TIKOONZ TV · Archive" },
+      { id: "Hg0ZsqPn084", title: "ARTIST NAME 2", meta: "TIKOONZ TV · Archive" },
+  ];
+
+  const ORIGIN = encodeURIComponent(location.origin);
+  const makeEmbedUrl = (id) =>
+    `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1&playsinline=1&origin=${ORIGIN}`;
+
+  const grid = document.getElementById("grid");
+  const player = document.getElementById("showPlayer");
+
+  function thumbUrl(id) {
+    return `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+  }
+
+  function play(id) {
+    player.src = makeEmbedUrl(id);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  VIDEOS.forEach((v, idx) => {
+    const card = document.createElement("div");
+    card.className = "thumb";
+    card.innerHTML = `
+      <img class="thumbImg" src="${thumbUrl(v.id)}" alt="">
+    `;
+    card.addEventListener("click", () => play(v.id));
+    grid.appendChild(card);
+    if (idx === 0) play(v.id);
+  });
+</script>
+</body>
+</html>

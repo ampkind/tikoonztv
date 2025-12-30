@@ -3,8 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>TIKOONZ TV</title>
-  <meta name="description" content="TIKOONZ TV — 힙합·EDM·K-POP 등 동시대 음악을 전문가와 함께 논의하는 한국어 음악 토크 플랫폼." />
+  <title>About · TIKOONZ TV</title>
   <style>
 :root {
   --max: 1120px;
@@ -69,6 +68,17 @@ iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
   transition: transform .08s ease, border-color .08s ease; }
 .thumb:hover { transform: translateY(-1px); border-color: var(--line2); }
 .thumbImg { width:100%; aspect-ratio: 16/9; object-fit: cover; display:block; background:#000; }
+.thumbCapWrap{ position:relative; }
+.thumbCap{
+  position:absolute; left:10px; right:10px; bottom:10px;
+  padding:8px 10px; border-radius:12px;
+  background: rgba(0,0,0,.55);
+  border: 1px solid rgba(255,255,255,.10);
+  backdrop-filter: blur(6px);
+}
+.thumbCapTitle{ margin:0; font-size:13px; font-weight:850; letter-spacing:.2px; }
+.thumbCapSub{ margin:4px 0 0; font-size:11px; color: rgba(255,255,255,.72); }
+
 .content { padding: 18px; line-height: 1.8; color: var(--text2); font-size: 13px; }
 .content strong { color: rgba(255,255,255,.93); }
 .miniTitle { margin:0 0 10px; font-weight: 850; color: rgba(255,255,255,.92); font-size: 14px; letter-spacing:.2px; }
@@ -91,7 +101,7 @@ footer { margin-top: 28px; border-top: 1px solid var(--line); padding: 18px 0 26
       <div class="tag">TIKOONZ TV</div>
     </a>
     <nav aria-label="Primary">
-      <a href="about.html">About</a>
+      <a href="about.html" style="border-color: rgba(255,255,255,.16); background: rgba(255,255,255,.03);">About</a>
       <a href="shows.html">Shows</a>
     </nav>
   </div>
@@ -99,16 +109,38 @@ footer { margin-top: 28px; border-top: 1px solid var(--line); padding: 18px 0 26
 
 <main class="wrap">
   <section class="card">
-    <div class="playerTop">
-      <p class="kicker">TIKOONZ TV</p>
-      <p class="h1">Music talk, in Korean.</p>
+    <div class="content">
+      <p class="miniTitle">About</p>
+
+      <div class="card" style="border-radius:14px; margin: 10px 0 14px;">
+        <img src="about-visual.png" alt="TIKOONZ TV visual" style="width:100%; display:block; aspect-ratio: 16/6; object-fit: cover; background:#000;">
       </div>
-    <div class="ratio">
-      <div id="player"></div>
+
+      <p>
+        <strong>TIKOONZ TV</strong>는 한국어로 힙합, EDM, K-POP을 포함한 동시대 음악을
+        <strong>음악 전문 교수</strong>와 <strong>산업 관계자</strong>가 함께 분석하고 논의하는 음악 토크 플랫폼입니다.
+        우리는 음악을 단순히 소개하거나 소비하지 않고, <strong>구조·사운드·역사·산업</strong>을 맥락으로 기록합니다.
+      </p>
+
+      <p class="miniTitle" style="margin-top:16px;">우리가 하려는 일</p>
+      <ul>
+        <li><strong>Genre Talk</strong>: 장르(힙합/EDM/K-POP)를 깊이 있게 해설하고 토론합니다.</li>
+        <li><strong>Roundtable</strong>: 교수·실무자가 함께 제작/산업의 관점을 공유합니다.</li>
+        <li><strong>Archive</strong>: 시간이 지나도 다시 보게 되는 자료로 축적합니다.</li>
+      </ul>
+
+      <p class="miniTitle" style="margin-top:16px;">왜 투자가 필요한가</p>
+      <ul>
+        <li>전문 출연자 섭외와 제작 환경 구축</li>
+        <li>지속 가능한 시즌형 제작(촬영·편집·제작 인력)</li>
+        <li>아카이브 품질을 유지하는 운영 구조</li>
+      </ul>
+
+      <p style="margin-top:14px; color: var(--text3);">
+        * About 이미지 파일명은 <strong>about-visual.png</strong> 입니다. 원하시는 이미지로 교체해서 올리면 바로 반영됩니다.
+      </p>
     </div>
   </section>
-
-  <div class="grid" id="grid" style="margin-top:14px;"></div>
 </main>
 
 <footer>
@@ -121,89 +153,5 @@ footer { margin-top: 28px; border-top: 1px solid var(--line); padding: 18px 0 26
   </div>
 </footer>
 
-
-<script>
-  const MAIN_VIDEO = { id: "k6vBizqAXBs", title: "Main Feature", meta: "TIKOONZ TV" };
-  const VIDEOS = [
-      { id: "2_ZXLTNgjeg", title: "ARTIST 01", meta: "TIKOONZ TV · Archive" },
-      { id: "jBWnWCUseyI", title: "ARTIST 02", meta: "TIKOONZ TV · Archive" },
-      { id: "dg194QhkGE0", title: "ARTIST 03", meta: "TIKOONZ TV · Archive" },
-      { id: "dwNzAA-G5a8", title: "ARTIST 04", meta: "TIKOONZ TV · Archive" },
-      { id: "lRFQZs2mR-I", title: "ARTIST 05", meta: "TIKOONZ TV · Archive" },
-      { id: "Uy6KpYZeERI", title: "ARTIST 06", meta: "TIKOONZ TV · Archive" },
-      { id: "K1fF0DFRJKw", title: "ARTIST NAME 1", meta: "TIKOONZ TV · Archive" },
-      { id: "Hg0ZsqPn084", title: "ARTIST NAME 2", meta: "TIKOONZ TV · Archive" },
-  ];
-
-  const QUEUE = [MAIN_VIDEO, ...VIDEOS];
-  let currentIndex = 0;
-  let ytPlayer = null;
-
-  const grid = document.getElementById("grid");
-  function thumbUrl(id) {
-    return `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
-  }
-
-  function renderGallery() {
-    VIDEOS.forEach((v) => {
-      const card = document.createElement("div");
-      card.className = "thumb";
-      card.innerHTML = `
-      <img class="thumbImg" src="${thumbUrl(v.id)}" alt="">
-    `;
-    card.addEventListener("click", () => {
-        currentIndex = 1 + VIDEOS.findIndex(x => x.id === v.id);
-        loadCurrent(true);
-      });
-      grid.appendChild(card);
-    });
-  }
-
-  function loadCurrent(autoplay = true) {
-    const v = QUEUE[currentIndex];
-    if (ytPlayer) {
-      ytPlayer.loadVideoById({ videoId: v.id, suggestedQuality: "hd1080" });
-      if (!autoplay) ytPlayer.pauseVideo();
-    }
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-
-  function nextVideo() {
-    currentIndex = (currentIndex + 1) % QUEUE.length;
-    loadCurrent(true);
-  }
-
-  function onYouTubeIframeAPIReady() {
-    ytPlayer = new YT.Player("player", {
-      videoId: MAIN_VIDEO.id,
-      playerVars: {
-        autoplay: 1,
-        playsinline: 1,
-        rel: 0,
-        modestbranding: 1,
-        loop: 1,
-        playlist: MAIN_VIDEO.id,
-        origin: window.location.origin
-      },
-      events: {
-        onReady: () => {
-          currentIndex = 0;
-          loadCurrent(true);
-        },
-        onStateChange: (e) => {
-          if (e.data === YT.PlayerState.ENDED) {
-            nextVideo();
-          }
-        }
-      }
-    });
-  }
-  window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
-
-  renderGallery();
-  const tag = document.createElement("script");
-  tag.src = "https://www.youtube.com/iframe_api";
-  document.head.appendChild(tag);
-</script>
 </body>
 </html>

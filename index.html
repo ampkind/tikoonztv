@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>TIKOONZ TV</title>
-  <meta name="description" content="TIKOONZ TV — 힙합·EDM·K-POP 등 동시대 음악을 전문가와 함께 논의하는 한국어 음악 토크 플랫폼." />
+  <meta name="description" content="TIKOONZ TV — A curated music talk archive that plays continuously." />
   <style>
 :root {
   --max: 1120px;
@@ -39,58 +39,32 @@ header {
   padding: 14px 24px;
   display:flex; align-items:center; justify-content:space-between; gap:16px;
 }
-.brand { display:flex; align-items:center; gap:12px; min-width: 220px; }
 .brand img { height: 28px; display:block; }
-.brand .tag { font-size: 12px; color: var(--text3); letter-spacing: .2px; }
 nav { display:flex; align-items:center; gap: 16px; font-size: 14px; color: var(--text2); }
 nav a { padding: 8px 10px; border-radius: 10px; border: 1px solid transparent; }
 nav a:hover { border-color: var(--line2); background: rgba(255,255,255,.03); }
 
 .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
-.playerTop { padding: 18px 16px 12px; }
-.kicker { font-size: 12px; color: var(--text3); margin:0 0 6px; letter-spacing:.2px; }
-.h1 { font-size: 22px; font-weight: 850; margin:0 0 10px; }
-.lead { font-size: 13px; color: var(--text2); margin:0; line-height:1.65; max-width: 980px; }
 .ratio { position: relative; width:100%; padding-top: 56.25%; background:#000; }
-iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
-
-.sectionTitle {
-  margin: 18px 0 10px;
-  display:flex; align-items: baseline; justify-content:space-between; gap: 12px;
-}
-.sectionTitle h2 { margin:0; font-size: 14px; letter-spacing:.2px; color: rgba(255,255,255,.9); }
-.sectionTitle .hint { margin:0; font-size: 12px; color: var(--text3); }
 
 .grid { display:grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
 @media (max-width: 980px) { .grid { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 680px) { .grid { grid-template-columns: repeat(2, 1fr); } }
 
-.thumb { border-radius: 14px; overflow:hidden; cursor:pointer; background: var(--card); border: 1px solid var(--line);
-  transition: transform .08s ease, border-color .08s ease; }
-.thumb:hover { transform: translateY(-1px); border-color: var(--line2); }
-.thumbImg { width:100%; aspect-ratio: 16/9; object-fit: cover; display:block; background:#000; }
-.content { padding: 18px; line-height: 1.8; color: var(--text2); font-size: 13px; }
-.content strong { color: rgba(255,255,255,.93); }
-.miniTitle { margin:0 0 10px; font-weight: 850; color: rgba(255,255,255,.92); font-size: 14px; letter-spacing:.2px; }
-ul { margin: 10px 0 0; padding-left: 18px; }
-li { margin: 6px 0; }
+.thumb { border-radius: 14px; overflow:hidden; cursor:pointer; background: var(--card); border: 1px solid var(--line); }
+.thumbImg { width:100%; aspect-ratio: 16/9; object-fit: cover; display:block; }
 
 footer { margin-top: 28px; border-top: 1px solid var(--line); padding: 18px 0 26px; color: var(--text3); font-size: 12px; }
-.footInner { max-width: var(--max); margin: 0 auto; padding: 0 24px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap: 12px; }
-.footLinks { display:flex; gap: 14px; flex-wrap:wrap; }
-.footLinks a { color: var(--text2); }
-.footLinks a:hover { text-decoration: underline; }
-</style>
+.footInner { max-width: var(--max); margin: 0 auto; padding: 0 24px; display:flex; justify-content:space-between; }
+.footLinks { display:flex; gap: 14px; }
+  </style>
 </head>
 <body>
 
 <header>
   <div class="headInner">
-    <a class="brand" href="index.html" aria-label="TIKOONZ TV Home">
-      <img src="tikoonz-logo.png" alt="TIKOONZ" />
-      <div class="tag">TIKOONZ TV</div>
-    </a>
-    <nav aria-label="Primary">
+    <a class="brand" href="index.html"><img src="tikoonz-logo.png" alt="TIKOONZ" /></a>
+    <nav>
       <a href="about.html">About</a>
       <a href="shows.html">Shows</a>
     </nav>
@@ -99,13 +73,8 @@ footer { margin-top: 28px; border-top: 1px solid var(--line); padding: 18px 0 26
 
 <main class="wrap">
   <section class="card">
-    <div class="playerTop">
-      </div>
-    <div class="ratio">
-      <div id="player"></div>
-    </div>
+    <div class="ratio"><div id="player"></div></div>
   </section>
-
   <div class="grid" id="grid" style="margin-top:14px;"></div>
 </main>
 
@@ -113,94 +82,58 @@ footer { margin-top: 28px; border-top: 1px solid var(--line); padding: 18px 0 26
   <div class="footInner">
     <div>© TIKOONZ TV</div>
     <div class="footLinks">
-      <a href="https://tikoonz.com" target="_blank" rel="noopener">TIKOONZ</a>
-      <a href="https://tikoonz.shop" target="_blank" rel="noopener">Shop</a>
+      <a href="https://tikoonz.com" target="_blank">TIKOONZ</a>
+      <a href="https://tikoonz.shop" target="_blank">SHOP</a>
+      <a href="https://www.youtube.com/@tikoonz" target="_blank">@TIKOONZ</a>
     </div>
   </div>
 </footer>
 
-
 <script>
-  const MAIN_VIDEO = { id: "k6vBizqAXBs", title: "Main Feature", meta: "TIKOONZ TV" };
+  const MAIN_VIDEO = { id: "k6vBizqAXBs" };
   const VIDEOS = [
-      { id: "2_ZXLTNgjeg", title: "ARTIST 01", meta: "TIKOONZ TV · Archive" },
-      { id: "jBWnWCUseyI", title: "ARTIST 02", meta: "TIKOONZ TV · Archive" },
-      { id: "dg194QhkGE0", title: "ARTIST 03", meta: "TIKOONZ TV · Archive" },
-      { id: "dwNzAA-G5a8", title: "ARTIST 04", meta: "TIKOONZ TV · Archive" },
-      { id: "lRFQZs2mR-I", title: "ARTIST 05", meta: "TIKOONZ TV · Archive" },
-      { id: "Uy6KpYZeERI", title: "ARTIST 06", meta: "TIKOONZ TV · Archive" },
-      { id: "K1fF0DFRJKw", title: "ARTIST NAME 1", meta: "TIKOONZ TV · Archive" },
-      { id: "Hg0ZsqPn084", title: "ARTIST NAME 2", meta: "TIKOONZ TV · Archive" },
+    { id: "2_ZXLTNgjeg" },
+    { id: "jBWnWCUseyI" },
+    { id: "dg194QhkGE0" },
+    { id: "dwNzAA-G5a8" },
+    { id: "lRFQZs2mR-I" },
+    { id: "Uy6KpYZeERI" },
   ];
-
   const QUEUE = [MAIN_VIDEO, ...VIDEOS];
   let currentIndex = 0;
   let ytPlayer = null;
 
-  const grid = document.getElementById("grid");
-  function thumbUrl(id) {
-    return `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
-  }
+  function thumbUrl(id){ return `https://i.ytimg.com/vi/${id}/hqdefault.jpg`; }
 
-  function renderGallery() {
-    VIDEOS.forEach((v) => {
-      const card = document.createElement("div");
-      card.className = "thumb";
-      card.innerHTML = `
-      <img class="thumbImg" src="${thumbUrl(v.id)}" alt="">
-    `;
-    card.addEventListener("click", () => {
-        currentIndex = 1 + VIDEOS.findIndex(x => x.id === v.id);
-        loadCurrent(true);
-      });
-      grid.appendChild(card);
+  function renderGallery(){
+    VIDEOS.forEach(v=>{
+      const d=document.createElement("div");
+      d.className="thumb";
+      d.innerHTML=`<img class="thumbImg" src="${thumbUrl(v.id)}">`;
+      d.onclick=()=>{ currentIndex=QUEUE.findIndex(x=>x.id===v.id); loadCurrent(); };
+      grid.appendChild(d);
     });
   }
 
-  function loadCurrent(autoplay = true) {
-    const v = QUEUE[currentIndex];
-    if (ytPlayer) {
-      ytPlayer.loadVideoById({ videoId: v.id, suggestedQuality: "hd1080" });
-      if (!autoplay) ytPlayer.pauseVideo();
-    }
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  function loadCurrent(){
+    ytPlayer.loadVideoById(QUEUE[currentIndex].id);
   }
 
-  function nextVideo() {
-    currentIndex = (currentIndex + 1) % QUEUE.length;
-    loadCurrent(true);
+  function nextVideo(){
+    currentIndex=(currentIndex+1)%QUEUE.length;
+    loadCurrent();
   }
 
-  function onYouTubeIframeAPIReady() {
-    ytPlayer = new YT.Player("player", {
+  function onYouTubeIframeAPIReady(){
+    ytPlayer=new YT.Player("player",{
       videoId: MAIN_VIDEO.id,
-      playerVars: {
-        autoplay: 1,
-        playsinline: 1,
-        rel: 0,
-        modestbranding: 1,
-        loop: 1,
-        playlist: MAIN_VIDEO.id,
-        origin: window.location.origin
-      },
-      events: {
-        onReady: () => {
-          currentIndex = 0;
-          loadCurrent(true);
-        },
-        onStateChange: (e) => {
-          if (e.data === YT.PlayerState.ENDED) {
-            nextVideo();
-          }
-        }
-      }
+      events:{ onStateChange:e=>{ if(e.data===0) nextVideo(); } }
     });
   }
-  window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
-
+  window.onYouTubeIframeAPIReady=onYouTubeIframeAPIReady;
   renderGallery();
-  const tag = document.createElement("script");
-  tag.src = "https://www.youtube.com/iframe_api";
+  const tag=document.createElement("script");
+  tag.src="https://www.youtube.com/iframe_api";
   document.head.appendChild(tag);
 </script>
 </body>

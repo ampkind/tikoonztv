@@ -1,73 +1,63 @@
 <!doctype html>
-<html lang="ko">
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Shows · TIKOONZ TV</title>
-  <style>
-:root {
-  --max: 1120px;
-  --bg: #0b0b0f;
-  --card: #141420;
-  --line: rgba(255,255,255,.10);
-  --line2: rgba(255,255,255,.16);
-  --text2: rgba(255,255,255,.78);
-  --text3: rgba(255,255,255,.62);
-  --radius: 16px;
-}
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Shows · TIKOONZ TV</title>
+</head>
+<body style="margin:0;background:#0b0b0f;color:#fff;font-family:system-ui">
 
-  </div>
-</main>
+<header style="padding:16px">
+<a href="index.html"><img src="tikoonz-logo.png" height="28"></a>
+</header>
 
-<footer>
-  <div class="footInner">
-    <div>© TIKOONZ TV</div>
-    <div class="footLinks">
-      <a href="https://tikoonz.com" target="_blank" rel="noopener">TIKOONZ</a>
-      <a href="https://tikoonz.shop" target="_blank" rel="noopener">Shop</a>
-    </div>
-  </div>
+<div style="max-width:1120px;margin:0 auto;padding:24px">
+  <div id="showPlayer" style="aspect-ratio:16/9"></div>
+  <div id="grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px"></div>
+</div>
+
+<footer style="padding:16px;border-top:1px solid rgba(255,255,255,.1)">
+  <a href="https://tikoonz.com">TIKOONZ</a> ·
+  <a href="https://tikoonz.shop">SHOP</a> ·
+  <a href="https://www.youtube.com/@tikoonz">@TIKOONZ</a>
 </footer>
 
-
 <script>
-  const VIDEOS = [
-      { id: "2_ZXLTNgjeg", title: "ARTIST 01", meta: "TIKOONZ TV · Archive" },
-      { id: "jBWnWCUseyI", title: "ARTIST 02", meta: "TIKOONZ TV · Archive" },
-      { id: "dg194QhkGE0", title: "ARTIST 03", meta: "TIKOONZ TV · Archive" },
-      { id: "dwNzAA-G5a8", title: "ARTIST 04", meta: "TIKOONZ TV · Archive" },
-      { id: "lRFQZs2mR-I", title: "ARTIST 05", meta: "TIKOONZ TV · Archive" },
-      { id: "Uy6KpYZeERI", title: "ARTIST 06", meta: "TIKOONZ TV · Archive" },
-      { id: "K1fF0DFRJKw", title: "ARTIST NAME 1", meta: "TIKOONZ TV · Archive" },
-      { id: "Hg0ZsqPn084", title: "ARTIST NAME 2", meta: "TIKOONZ TV · Archive" },
-  ];
+const MAIN={id:"XPd7XutfqSY"};
+const EP=[
+{id:"N1j4gXlzKGI"},
+{id:"5ZJuAOeQX5Y"},
+{id:"n7PnboBqSLU"},
+{id:"KTMHd5qm7xQ"},
+{id:"EmTxU_-dPEM"},
+{id:"s2yqp_jMQEE"}
+];
+const Q=[MAIN,...EP];
+let i=0,p;
 
-  const ORIGIN = encodeURIComponent(location.origin);
-  const makeEmbedUrl = (id) =>
-    `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1&playsinline=1&origin=${ORIGIN}`;
+function thumb(id){return `https://i.ytimg.com/vi/${id}/hqdefault.jpg`}
 
-  const grid = document.getElementById("grid");
-  const player = document.getElementById("showPlayer");
+EP.forEach((v,idx)=>{
+  const d=document.createElement("img");
+  d.src=thumb(v.id);
+  d.style.width="100%";
+  d.onclick=()=>{i=idx+1;p.loadVideoById(Q[i].id)};
+  grid.appendChild(d);
+});
 
-  function thumbUrl(id) {
-    return `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
-  }
+function next(){i=(i+1)%Q.length;p.loadVideoById(Q[i].id)}
 
-  function play(id) {
-    player.src = makeEmbedUrl(id);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-
-  VIDEOS.forEach((v, idx) => {
-    const card = document.createElement("div");
-    card.className = "thumb";
-    card.innerHTML = `
-      <img class="thumbImg" src="${thumbUrl(v.id)}" alt="">
-    `;
-    card.addEventListener("click", () => play(v.id));
-    grid.appendChild(card);
-    if (idx === 0) play(v.id);
+function onYouTubeIframeAPIReady(){
+  p=new YT.Player("showPlayer",{
+    videoId:MAIN.id,
+    events:{onStateChange:e=>{if(e.data===0)next()}}
   });
+}
+window.onYouTubeIframeAPIReady=onYouTubeIframeAPIReady;
+const s=document.createElement("script");
+s.src="https://www.youtube.com/iframe_api";
+document.head.appendChild(s);
 </script>
+
 </body>
 </html>

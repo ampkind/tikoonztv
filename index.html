@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TIKOONZ TV</title>
+  <meta name="description" content="TIKOONZ TV — 힙합·EDM·K-POP 등 동시대 음악을 전문가와 함께 논의하는 한국어 음악 토크 플랫폼." />
+  <style>
+    :root {
+      --max: 1120px;
+      --bg: #0b0b0f;
+      --card: #141420;
+      --line: rgba(255,255,255,.10);
+      --line2: rgba(255,255,255,.16);
+      --text2: rgba(255,255,255,.78);
+      --text3: rgba(255,255,255,.62);
+      --radius: 16px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: #fff;
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 24px; }
+
+    header {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(10px);
+      background: rgba(11,11,15,.72);
+      border-bottom: 1px solid var(--line);
+    }
+    .headInner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 14px 24px;
+      display:flex; align-items:center; justify-content:space-between; gap:16px;
+    }
+    .brand {
+      display:flex; align-items:center; gap:12px;
+      min-width: 220px;
+    }
+    .brand img { height: 28px; display:block; }
+    .brand .tag {
+      font-size: 12px; color: var(--text3);
+      letter-spacing: .2px;
+    }
+    nav {
+      display:flex; align-items:center; gap: 16px;
+      font-size: 14px; color: var(--text2);
+    }
+    nav a {
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid transparent;
+    }
+    nav a:hover {
+      border-color: var(--line2);
+      background: rgba(255,255,255,.03);
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .hero {
+      margin-top: 18px;
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 14px;
+    }
+    @media (max-width: 920px) {
+      .hero { grid-template-columns: 1fr; }
+    }
+    .playerTop { padding: 14px 14px 10px; }
+    .nowTitle { font-size: 16px; font-weight: 750; margin:0 0 6px; }
+    .nowMeta { font-size: 12px; color: var(--text3); margin:0; line-height:1.45; }
+    .ratio { position: relative; width:100%; padding-top: 56.25%; background:#000; }
+    iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+
+    .side { padding: 16px; }
+    .kicker { font-size: 12px; color: var(--text3); margin:0 0 8px; letter-spacing:.2px; }
+    .h1 { font-size: 20px; font-weight: 800; margin:0 0 10px; }
+    .lead { font-size: 13px; color: var(--text2); margin:0 0 14px; line-height:1.6; }
+    .pillRow { display:flex; flex-wrap:wrap; gap:8px; margin-top: 10px; }
+    .pill {
+      font-size: 12px; color: var(--text2);
+      border: 1px solid var(--line2);
+      background: rgba(255,255,255,.03);
+      padding: 7px 10px; border-radius: 999px;
+    }
+
+    .sectionTitle {
+      margin: 24px 0 10px;
+      display:flex; align-items: baseline; justify-content:space-between; gap: 12px;
+    }
+    .sectionTitle h2 { margin:0; font-size: 14px; letter-spacing:.2px; color: rgba(255,255,255,.9); }
+    .sectionTitle .hint { margin:0; font-size: 12px; color: var(--text3); }
+
+    .grid {
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 980px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 680px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+
+    .thumb {
+      border-radius: 14px;
+      overflow:hidden;
+      cursor:pointer;
+      background: var(--card);
+      border: 1px solid var(--line);
+      transition: transform .08s ease, border-color .08s ease;
+    }
+    .thumb:hover { transform: translateY(-1px); border-color: var(--line2); }
+    .thumbImg { width:100%; aspect-ratio: 16/9; object-fit: cover; display:block; background:#000; }
+    .thumbBody { padding: 10px 10px 12px; }
+    .thumbTitle { font-size: 13px; font-weight: 750; margin:0 0 6px; line-height:1.25; }
+    .thumbMeta { font-size: 11px; color: var(--text3); margin:0; }
+
+    .content {
+      padding: 16px;
+      line-height: 1.75;
+      color: var(--text2);
+      font-size: 13px;
+    }
+    .content strong { color: rgba(255,255,255,.93); }
+    .twoCol {
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    @media (max-width: 920px) { .twoCol { grid-template-columns: 1fr; } }
+    .miniTitle { margin:0 0 8px; font-weight: 800; color: rgba(255,255,255,.92); font-size: 13px; }
+    ul { margin: 8px 0 0; padding-left: 18px; }
+    li { margin: 6px 0; }
+
+    footer {
+      margin-top: 28px;
+      border-top: 1px solid var(--line);
+      padding: 18px 0 26px;
+      color: var(--text3);
+      font-size: 12px;
+    }
+    .footInner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 24px;
+      display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap: 12px;
+    }
+    .footLinks { display:flex; gap: 14px; flex-wrap:wrap; }
+    .footLinks a { color: var(--text2); }
+    .footLinks a:hover { text-decoration: underline; }
+
+    .note {
+      margin-top: 10px;
+      color: var(--text3);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="headInner">
+      <a class="brand" href="/" aria-label="TIKOONZ TV Home">
+        <img src="tikoonz-logo.png" alt="TIKOONZ" />
+        <div class="tag">TIKOONZ TV</div>
+      </a>
+
+      <nav aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#shows">Shows</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="card">
+        <div class="playerTop">
+          <p class="nowTitle" id="nowTitle">Main Feature</p>
+          <p class="nowMeta" id="nowMeta">
+            힙합·EDM·K-POP 등 동시대 음악을 <strong>음악 전문 교수</strong>와 <strong>산업 관계자</strong>가 함께 논의하는 한국어 음악 토크 플랫폼.
+          </p>
+        </div>
+        <div class="ratio">
+          <iframe
+            id="player"
+            src=""
+            title="TIKOONZ TV Player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+
+      <aside class="card side">
+        <p class="kicker">TIKOONZ TV</p>
+        <p class="h1">Music talk, in Korean.</p>
+        <p class="lead">
+          유행을 소비하는 방송이 아니라, 음악의 구조·사운드·역사·산업을 <strong>깊이 있게</strong> 다룹니다.
+          방송은 아카이브로 축적되어, 시간이 지나도 다시 볼 수 있는 자료가 되도록 설계합니다.
+        </p>
+        <div class="pillRow">
+          <div class="pill">HIP-HOP</div>
+          <div class="pill">EDM</div>
+          <div class="pill">K-POP</div>
+          <div class="pill">PROFESSORS</div>
+          <div class="pill">INDUSTRY</div>
+        </div>
+        <p class="note">
+          영상은 유튜브 임베드로 재생됩니다. 기본 동선은 tikoonz.tv 안에서 유지되도록 구성했습니다.
+        </p>
+      </aside>
+    </section>
+
+    <div class="sectionTitle">
+      <h2>GALLERY</h2>
+      <p class="hint">썸네일 클릭 → 메인 플레이어로 확대 재생</p>
+    </div>
+    <div class="grid" id="grid"></div>
+
+    <section id="about" class="card" style="margin-top:24px;">
+      <div class="content">
+        <p class="miniTitle">About</p>
+        <p>
+          <strong>TIKOONZ TV</strong>는 힙합, EDM, K-POP을 포함한 동시대 음악을
+          <strong>음악 전문 교수</strong>와 <strong>산업 관계자</strong>가 함께 분석하고 논의하는 한국어 기반 음악 토크 플랫폼입니다.
+          우리는 음악을 단순히 소개하거나 소비하지 않고, <strong>왜 지금 이런 소리와 구조가 만들어지는지</strong>를 맥락으로 기록합니다.
+        </p>
+
+        <div class="twoCol" style="margin-top:12px;">
+          <div>
+            <p class="miniTitle">대화의 기준</p>
+            <ul>
+              <li>장르의 역사와 현재의 변곡점</li>
+              <li>사운드·편곡·프로덕션 관점의 분석</li>
+              <li>산업 구조(플랫폼·레이블·제작 시스템)의 현실</li>
+              <li>교육 현장과 실무의 간극, 그리고 연결</li>
+            </ul>
+          </div>
+          <div>
+            <p class="miniTitle">방송 운영 원칙</p>
+            <ul>
+              <li>속도보다 <strong>밀도</strong></li>
+              <li>자극보다 <strong>신뢰</strong></li>
+              <li>일회성 화제보다 <strong>아카이브 가치</strong></li>
+              <li>한국어로 깊이 말하고, 필요하면 확장한다</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="shows" class="card" style="margin-top:14px;">
+      <div class="content">
+        <p class="miniTitle">Shows</p>
+        <p>
+          TIKOONZ TV는 시즌형 운영을 전제로, 주제를 선명하게 잡은 토크 프로그램을 제작합니다.
+          (프로그램명과 라인업은 확정되는 대로 업데이트됩니다.)
+        </p>
+
+        <div class="twoCol" style="margin-top:12px;">
+          <div class="card" style="border-radius:14px;">
+            <div class="content" style="padding:14px;">
+              <p class="miniTitle">Genre Focus</p>
+              <ul>
+                <li>Hip-Hop: 흐름·가사·프로덕션·씬 분석</li>
+                <li>EDM: 사운드 디자인·서브장르·퍼포먼스</li>
+                <li>K-POP: 제작 시스템·글로벌 트렌드·구조</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card" style="border-radius:14px;">
+            <div class="content" style="padding:14px;">
+              <p class="miniTitle">Industry Roundtable</p>
+              <ul>
+                <li>프로듀서·엔지니어·레이블 관계자 대담</li>
+                <li>플랫폼/유통 변화가 음악에 미치는 영향</li>
+                <li>현장 기반 사례와 실무 노하우 공유</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card" style="border-radius:14px;">
+            <div class="content" style="padding:14px;">
+              <p class="miniTitle">Listening & Analysis</p>
+              <ul>
+                <li>대표 트랙/앨범 단위 청취 + 구조 분석</li>
+                <li>레퍼런스 비교(사운드/믹스/편곡)</li>
+                <li>“왜 이 음악이 먹히는가”를 언어화</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card" style="border-radius:14px;">
+            <div class="content" style="padding:14px;">
+              <p class="miniTitle">Archive</p>
+              <ul>
+                <li>기존 방송 중 선별된 에피소드만 갤러리로 제공</li>
+                <li>재편집/큐레이션을 통해 의미 중심으로 재정리</li>
+                <li>필요한 회차를 찾아보는 구조</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <p class="note">
+          안내: 유튜브 임베드 특성상 플레이어 자체 기능(예: “YouTube에서 보기”)은 환경에 따라 일부 노출될 수 있습니다.
+          그러나 기본 동선은 tikoonz.tv 내부 시청 경험을 중심으로 설계합니다.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footInner">
+      <div>© TIKOONZ TV</div>
+      <div class="footLinks">
+        <a href="https://tikoonz.com" target="_blank" rel="noopener">TIKOONZ</a>
+        <a href="https://tikoonz.shop" target="_blank" rel="noopener">Shop</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const MAIN_VIDEO = { id: "k6vBizqAXBs", title: "Main Feature", meta: "TIKOONZ TV" };
+    const VIDEOS = [
+      { id: "2_ZXLTNgjeg", title: "Archive 01", meta: "TIKOONZ TV · Archive" },
+      { id: "jBWnWCUseyI", title: "Archive 02", meta: "TIKOONZ TV · Archive" },
+      { id: "dg194QhkGE0", title: "Archive 03", meta: "TIKOONZ TV · Archive" },
+      { id: "dwNzAA-G5a8", title: "Archive 04", meta: "TIKOONZ TV · Archive" },
+      { id: "lRFQZs2mR-I", title: "Archive 05", meta: "TIKOONZ TV · Archive" },
+      { id: "Uy6KpYZeERI", title: "Archive 06", meta: "TIKOONZ TV · Archive" },
+    ];
+
+    const ORIGIN = encodeURIComponent(location.origin);
+    const makeEmbedUrl = (id) =>
+      `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1&playsinline=1&origin=${ORIGIN}`;
+
+    const player = document.getElementById("player");
+    const nowTitle = document.getElementById("nowTitle");
+    const nowMeta = document.getElementById("nowMeta");
+    const grid = document.getElementById("grid");
+
+    function setNow(video) {
+      nowTitle.textContent = video.title;
+      nowMeta.textContent = video.meta;
+      player.src = makeEmbedUrl(video.id);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function thumbUrl(id) {
+      return `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+    }
+
+    VIDEOS.forEach((v) => {
+      const card = document.createElement("div");
+      card.className = "thumb";
+      card.innerHTML = `
+        <img class="thumbImg" src="${thumbUrl(v.id)}" alt="${v.title}">
+        <div class="thumbBody">
+          <p class="thumbTitle">${v.title}</p>
+          <p class="thumbMeta">${v.meta}</p>
+        </div>
+      `;
+      card.addEventListener("click", () => setNow(v));
+      grid.appendChild(card);
+    });
+
+    // Default main player
+    player.src = makeEmbedUrl(MAIN_VIDEO.id);
+  </script>
+</body>
+</html>

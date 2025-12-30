@@ -1,1 +1,230 @@
-<!doctype html><html><body>Index unchanged</body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TIKOONZ TV</title>
+  <meta name="description" content="TIKOONZ TV — Continuous playback." />
+  <style>
+:root{
+  --max:1120px;
+  --bg:#0b0b0f;
+  --card:#141420;
+  --line:rgba(255,255,255,.10);
+  --line2:rgba(255,255,255,.16);
+  --text2:rgba(255,255,255,.78);
+  --text3:rgba(255,255,255,.62);
+  --radius:16px;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  background:var(--bg);
+  color:#fff;
+}
+a{color:inherit;text-decoration:none;}
+.wrap{max-width:var(--max);margin:0 auto;padding:24px;}
+
+header{
+  position:sticky;top:0;z-index:50;
+  backdrop-filter:blur(10px);
+  background:rgba(11,11,15,.72);
+  border-bottom:1px solid var(--line);
+}
+.headInner{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:14px 24px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+}
+.brand img{height:28px;display:block;}
+nav{display:flex;align-items:center;gap:16px;font-size:14px;color:var(--text2);}
+nav a{padding:8px 10px;border-radius:10px;border:1px solid transparent;}
+nav a:hover{border-color:var(--line2);background:rgba(255,255,255,.03);}
+nav a.active{border-color:rgba(255,255,255,.16);background:rgba(255,255,255,.03);}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;}
+.ratio{position:relative;width:100%;padding-top:56.25%;background:#000;} /* 16:9 */
+#player,#showPlayer{position:absolute;inset:0;width:100%;height:100%;}
+iframe.video{position:absolute;inset:0;width:100%;height:100%;border:0;}
+
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px;}
+@media(max-width:980px){.grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:680px){.grid{grid-template-columns:repeat(2,1fr);}}
+
+.thumb{border-radius:14px;overflow:hidden;cursor:pointer;background:var(--card);border:1px solid var(--line);
+  transition:transform .08s ease,border-color .08s ease;}
+.thumb:hover{transform:translateY(-1px);border-color:var(--line2);}
+.thumbImg{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:#000;}
+
+.content{
+  padding:22px;
+  line-height:1.9;
+  color:var(--text2);
+  font-size:14px;
+  text-align:justify;
+  text-justify:inter-word;
+}
+.sectionLabel{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.85);margin:0 0 14px;}
+.content p{max-width:100%;margin:0 0 16px;}
+
+.langInline{
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+  margin-bottom:12px;
+}
+.langInline button{
+  background:transparent;
+  border:1px solid rgba(255,255,255,.16);
+  color:rgba(255,255,255,.78);
+  padding:6px 9px;
+  border-radius:10px;
+  cursor:pointer;
+  font-size:12px;
+}
+.langInline button:hover{background:rgba(255,255,255,.05);}
+.langInline button.active{border-color:rgba(255,255,255,.32);background:rgba(255,255,255,.03);}
+
+footer{margin-top:28px;border-top:1px solid var(--line);padding:18px 0 26px;color:var(--text3);font-size:12px;}
+.footInner{max-width:var(--max);margin:0 auto;padding:0 24px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;}
+.footLinks{display:flex;gap:14px;flex-wrap:wrap;}
+.footLinks a{color:var(--text2);}
+.footLinks a:hover{text-decoration:underline;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="headInner">
+    <a class="brand" href="index.html" aria-label="TIKOONZ TV Home">
+      <img src="tikoonz-logo.png" alt="TIKOONZ" />
+    </a>
+    <nav aria-label="Primary">
+      <a href="about.html" class="">About</a>
+      <a href="shows.html" class="">Shows</a>
+    </nav>
+  </div>
+</header>
+
+
+<main class="wrap">
+  <section class="card">
+    <div class="ratio"><div id="player"></div></div>
+  </section>
+
+  <div class="grid" id="grid"></div>
+</main>
+
+
+<footer>
+  <div class="footInner">
+    <div>© TIKOONZ TV</div>
+    <div class="footLinks">
+      <a href="https://tikoonz.com" target="_blank" rel="noopener">TIKOONZ</a>
+      <a href="https://tikoonz.shop" target="_blank" rel="noopener">SHOP</a>
+      <a href="https://www.youtube.com/@tikoonz" target="_blank" rel="noopener">@TIKOONZ</a>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  // Autoplay is forced via mute() (browser policy).
+  const MAIN_VIDEO = { id: "k6vBizqAXBs" };
+  const VIDEOS = [
+    { id: "2_ZXLTNgjeg" },
+    { id: "jBWnWCUseyI" },
+    { id: "dg194QhkGE0" },
+    { id: "dwNzAA-G5a8" },
+    { id: "lRFQZs2mR-I" },
+    { id: "Uy6KpYZeERI" },
+    { id: "K1fF0DFRJKw" },
+    { id: "Hg0ZsqPn084" },
+  ];
+
+  const QUEUE = [MAIN_VIDEO, ...VIDEOS];
+  let currentIndex = 0;
+  let ytPlayer = null;
+
+  const grid = document.getElementById("grid");
+  function thumbUrl(id) { return `https://i.ytimg.com/vi/${id}/hqdefault.jpg`; }
+
+  function renderGallery() {
+    VIDEOS.forEach((v) => {
+      const card = document.createElement("div");
+      card.className = "thumb";
+      card.innerHTML = `<img class="thumbImg" src="${thumbUrl(v.id)}" alt="">`;
+      card.addEventListener("click", () => {
+        currentIndex = 1 + VIDEOS.findIndex(x => x.id === v.id);
+        loadCurrent(true);
+      });
+      grid.appendChild(card);
+    });
+  }
+
+  function loadCurrent(autoplay = true) {
+    const v = QUEUE[currentIndex];
+    if (ytPlayer) {
+      ytPlayer.loadVideoById({ videoId: v.id, suggestedQuality: "hd1080" });
+      if (!autoplay) ytPlayer.pauseVideo();
+    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function nextVideo() {
+    currentIndex = (currentIndex + 1) % QUEUE.length;
+    loadCurrent(true);
+  }
+
+  function ensureFallback() {
+    const host = document.getElementById("player");
+    if (!host) return;
+    if (host.querySelector("iframe")) return;
+    host.innerHTML = `
+      <iframe class="video"
+        src="https://www.youtube-nocookie.com/embed/${MAIN_VIDEO.id}?autoplay=1&mute=1&rel=0&modestbranding=1&playsinline=1"
+        title="TIKOONZ TV"
+        allow="autoplay; encrypted-media; picture-in-picture"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen></iframe>`;
+  }
+
+  function onYouTubeIframeAPIReady() {
+    try {
+      ytPlayer = new YT.Player("player", {
+        videoId: MAIN_VIDEO.id,
+        playerVars: {
+          autoplay: 1,
+          playsinline: 1,
+          rel: 0,
+          modestbranding: 1
+        },
+        events: {
+          onReady: () => {
+            try { ytPlayer.mute(); } catch(e) {}
+            try { ytPlayer.playVideo(); } catch(e) {}
+          },
+          onStateChange: (e) => {
+            if (e.data === YT.PlayerState.ENDED) nextVideo();
+          },
+          onError: () => ensureFallback()
+        }
+      });
+    } catch(e) {
+      ensureFallback();
+    }
+  }
+  window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
+
+  renderGallery();
+  const tag = document.createElement("script");
+  tag.src = "https://www.youtube.com/iframe_api";
+  tag.onerror = ensureFallback;
+  document.head.appendChild(tag);
+  setTimeout(ensureFallback, 1200);
+</script>
+</body>
+</html>

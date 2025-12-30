@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>About · TIKOONZ TV</title>
+  <meta name="description" content="TIKOONZ TV — About." />
+  <style>
+:root{
+  --max:1120px;
+  --bg:#0b0b0f;
+  --card:#141420;
+  --line:rgba(255,255,255,.10);
+  --line2:rgba(255,255,255,.16);
+  --text2:rgba(255,255,255,.78);
+  --text3:rgba(255,255,255,.62);
+  --radius:16px;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  background:var(--bg);
+  color:#fff;
+}
+a{color:inherit;text-decoration:none;}
+.wrap{max-width:var(--max);margin:0 auto;padding:24px;}
+
+header{
+  position:sticky;top:0;z-index:50;
+  backdrop-filter:blur(10px);
+  background:rgba(11,11,15,.72);
+  border-bottom:1px solid var(--line);
+}
+.headInner{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:14px 24px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+}
+.brand img{height:28px;display:block;}
+nav{display:flex;align-items:center;gap:16px;font-size:14px;color:var(--text2);}
+nav a{padding:8px 10px;border-radius:10px;border:1px solid transparent;}
+nav a:hover{border-color:var(--line2);background:rgba(255,255,255,.03);}
+nav a.active{border-color:rgba(255,255,255,.16);background:rgba(255,255,255,.03);}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;}
+.ratio{position:relative;width:100%;padding-top:56.25%;background:#000;} /* 16:9 */
+#player,#showPlayer{position:absolute;inset:0;width:100%;height:100%;}
+iframe.video{position:absolute;inset:0;width:100%;height:100%;border:0;}
+
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px;}
+@media(max-width:980px){.grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:680px){.grid{grid-template-columns:repeat(2,1fr);}}
+
+.thumb{border-radius:14px;overflow:hidden;cursor:pointer;background:var(--card);border:1px solid var(--line);
+  transition:transform .08s ease,border-color .08s ease;}
+.thumb:hover{transform:translateY(-1px);border-color:var(--line2);}
+.thumbImg{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:#000;}
+
+.content{
+  padding:22px;
+  line-height:1.9;
+  color:var(--text2);
+  font-size:14px;
+  text-align:justify;
+  text-justify:inter-word;
+}
+.sectionLabel{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.85);margin:0 0 14px;}
+.content p{max-width:100%;margin:0 0 16px;}
+
+.langInline{
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+  margin-bottom:12px;
+}
+.langInline button{
+  background:transparent;
+  border:1px solid rgba(255,255,255,.16);
+  color:rgba(255,255,255,.78);
+  padding:6px 9px;
+  border-radius:10px;
+  cursor:pointer;
+  font-size:12px;
+}
+.langInline button:hover{background:rgba(255,255,255,.05);}
+.langInline button.active{border-color:rgba(255,255,255,.32);background:rgba(255,255,255,.03);}
+
+footer{margin-top:28px;border-top:1px solid var(--line);padding:18px 0 26px;color:var(--text3);font-size:12px;}
+.footInner{max-width:var(--max);margin:0 auto;padding:0 24px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;}
+.footLinks{display:flex;gap:14px;flex-wrap:wrap;}
+.footLinks a{color:var(--text2);}
+.footLinks a:hover{text-decoration:underline;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="headInner">
+    <a class="brand" href="index.html" aria-label="TIKOONZ TV Home">
+      <img src="tikoonz-logo.png" alt="TIKOONZ" />
+    </a>
+    <nav aria-label="Primary">
+      <a href="about.html" class="active">About</a>
+      <a href="shows.html" class="">Shows</a>
+    </nav>
+  </div>
+</header>
+
+
+<main class="wrap">
+  <section class="card">
+    <div class="ratio">
+      <iframe class="video"
+        src="https://www.youtube-nocookie.com/embed/UAwvxZ8qJj4?autoplay=1&loop=1&playlist=UAwvxZ8qJj4&start=19&rel=0&modestbranding=1&playsinline=1"
+        title="TIKOONZ TV Vision"
+        allow="autoplay; encrypted-media; picture-in-picture"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen></iframe>
+    </div>
+  </section>
+
+  <section class="card" style="margin-top:16px;">
+    <div class="content">
+      <div class="langInline" aria-label="Language">
+        <button id="btnEN" type="button">EN</button>
+        <button id="btnKO" type="button">KO</button>
+      </div>
+
+      <p id="aboutLabel" class="sectionLabel">About</p>
+      <p data-i18n="about.p1">TIKOONZ TV is a Korean-based music talk platform where professors and industry professionals examine contemporary music — from Hip-Hop and EDM to K-POP.</p><p data-i18n="about.p2">Rather than simply presenting tracks or reacting to trends, TIKOONZ TV focuses on how music is constructed. Each episode explores musical structure, production choices, sonic references, and the cultural and historical environments that shape sound. Our approach values clarity and precision while maintaining depth, offering insight without sacrificing accessibility.</p><p data-i18n="about.p3">The platform is designed for listeners who want to move beyond surface-level consumption. Musicians, producers, students, educators, and deeply engaged fans use TIKOONZ TV as a space for critical listening and contextual understanding. We believe that meaningful engagement with music requires time, continuity, and informed discussion.</p><p data-i18n="about.p4">TIKOONZ TV operates as a curated channel rather than a collection of isolated clips. Episodes are sequenced to play continuously, encouraging long-form listening and immersion. This structure reflects our belief that context matters — that music is best understood not in fragments, but as part of a larger conversation.</p><p data-i18n="about.p5">At its core, TIKOONZ TV is an archive. In an environment where content is rapidly consumed and forgotten, we aim to build material that remains relevant over time. The platform documents how musical scenes evolve, how artists develop, and how listening practices change across generations and cultures.</p><p data-i18n="about.p6">By bridging academic perspectives with real-world industry experience, TIKOONZ TV positions itself as both a media platform and a knowledge resource. As the archive grows, the site becomes a living map of contemporary music culture — curated, structured, and built for long-term engagement.</p>
+    </div>
+  </section>
+</main>
+
+
+<footer>
+  <div class="footInner">
+    <div>© TIKOONZ TV</div>
+    <div class="footLinks">
+      <a href="https://tikoonz.com" target="_blank" rel="noopener">TIKOONZ</a>
+      <a href="https://tikoonz.shop" target="_blank" rel="noopener">SHOP</a>
+      <a href="https://www.youtube.com/@tikoonz" target="_blank" rel="noopener">@TIKOONZ</a>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+const I18N = {
+  en: {
+    label: "About",
+    "about.p1": 'TIKOONZ TV is a Korean-based music talk platform where professors and industry professionals examine contemporary music — from Hip-Hop and EDM to K-POP.', "about.p2": 'Rather than simply presenting tracks or reacting to trends, TIKOONZ TV focuses on how music is constructed. Each episode explores musical structure, production choices, sonic references, and the cultural and historical environments that shape sound. Our approach values clarity and precision while maintaining depth, offering insight without sacrificing accessibility.', "about.p3": 'The platform is designed for listeners who want to move beyond surface-level consumption. Musicians, producers, students, educators, and deeply engaged fans use TIKOONZ TV as a space for critical listening and contextual understanding. We believe that meaningful engagement with music requires time, continuity, and informed discussion.', "about.p4": 'TIKOONZ TV operates as a curated channel rather than a collection of isolated clips. Episodes are sequenced to play continuously, encouraging long-form listening and immersion. This structure reflects our belief that context matters — that music is best understood not in fragments, but as part of a larger conversation.', "about.p5": 'At its core, TIKOONZ TV is an archive. In an environment where content is rapidly consumed and forgotten, we aim to build material that remains relevant over time. The platform documents how musical scenes evolve, how artists develop, and how listening practices change across generations and cultures.', "about.p6": 'By bridging academic perspectives with real-world industry experience, TIKOONZ TV positions itself as both a media platform and a knowledge resource. As the archive grows, the site becomes a living map of contemporary music culture — curated, structured, and built for long-term engagement.'
+  },
+  ko: {
+    label: "소개",
+    "about.p1": 'TIKOONZ TV는 한국을 기반으로 한 음악 토크 플랫폼으로, 교수진과 업계 전문가들이 힙합, EDM, K-POP을 포함한 동시대 음악을 분석하고 그 맥락을 함께 짚어 나갑니다.', "about.p2": 'TIKOONZ TV는 음악을 단순히 소개하거나 유행에 반응하는 데서 멈추지 않습니다. 각 에피소드는 음악의 구조, 프로덕션 선택, 사운드 레퍼런스, 그리고 소리를 형성한 문화적·역사적 환경을 탐구합니다. 우리는 명료함과 정확성을 바탕으로, 깊이를 잃지 않는 이해를 목표로 합니다.', "about.p3": '이 플랫폼은 음악을 피상적으로 소비하는 것을 넘어, 더 깊이 이해하고자 하는 청취자를 위해 설계되었습니다. 연주자, 프로듀서, 학생, 교육자, 그리고 밀도 있는 청취를 원하는 음악 팬들에게 TIKOONZ TV는 비평적 청취와 맥락적 이해의 공간이 됩니다. 우리는 음악을 제대로 이해하기 위해서는 시간, 연속성, 그리고 충분한 대화가 필요하다고 믿습니다.', "about.p4": 'TIKOONZ TV는 개별 영상의 나열이 아닌, 하나의 편성된 채널로 운영됩니다. 에피소드들은 연속 재생을 전제로 구성되어, 단절 없이 몰입할 수 있는 장기적 청취 경험을 제공합니다. 이는 음악이 단편이 아니라, 더 큰 대화의 일부로 이해되어야 한다는 우리의 관점을 반영합니다.', "about.p5": 'TIKOONZ TV의 핵심은 아카이브에 있습니다. 빠르게 소비되고 잊히는 콘텐츠 환경 속에서, 우리는 시간이 지나도 다시 찾아볼 수 있는 기록을 구축하고자 합니다. 이 플랫폼은 음악 씬의 변화, 아티스트의 성장, 그리고 세대와 문화에 따라 달라지는 청취 방식의 변화를 기록합니다.', "about.p6": '학문적 관점과 현장의 경험을 연결함으로써, TIKOONZ TV는 미디어 플랫폼이자 지식 자원으로 자리합니다. 아카이브가 확장될수록, 이 사이트는 단순한 영상 모음을 넘어 동시대 음악 문화를 보여주는 살아 있는 지도로 기능하게 될 것입니다.'
+  }
+};
+
+function setActive(lang){
+  const en = document.getElementById("btnEN");
+  const ko = document.getElementById("btnKO");
+  en.classList.toggle("active", lang === "en");
+  ko.classList.toggle("active", lang === "ko");
+}
+
+function applyLang(lang){
+  const dict = I18N[lang] || I18N.en;
+  document.getElementById("aboutLabel").textContent = dict.label;
+
+  document.querySelectorAll("[data-i18n]").forEach((el)=>{
+    const key = el.getAttribute("data-i18n");
+    if(dict[key]) el.textContent = dict[key];
+  });
+
+  localStorage.setItem("tikoonz_lang", lang);
+  setActive(lang);
+}
+
+function detectLang(){
+  const saved = localStorage.getItem("tikoonz_lang");
+  if(saved === "ko" || saved === "en") return saved;
+  const nav = (navigator.language || "en").toLowerCase();
+  return nav.startsWith("ko") ? "ko" : "en";
+}
+
+document.getElementById("btnEN").addEventListener("click", ()=>applyLang("en"));
+document.getElementById("btnKO").addEventListener("click", ()=>applyLang("ko"));
+applyLang(detectLang());
+</script>
+</body>
+</html>

@@ -93,6 +93,25 @@ footer{margin-top:28px;border-top:1px solid var(--line);padding:18px 0 26px;colo
 .footLinks{display:flex;gap:14px;flex-wrap:wrap;}
 .footLinks a{color:var(--text2);}
 .footLinks a:hover{text-decoration:underline;}
+
+.soundBtn{
+  position:absolute;
+  right:14px;
+  bottom:14px;
+  width:42px;
+  height:42px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.22);
+  background:rgba(0,0,0,.45);
+  color:rgba(255,255,255,.9);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  z-index:20;
+  user-select:none;
+}
+.soundBtn:hover{ background:rgba(0,0,0,.60); }
 </style>
 </head>
 <body>
@@ -112,7 +131,7 @@ footer{margin-top:28px;border-top:1px solid var(--line);padding:18px 0 26px;colo
 
 <main class="wrap">
   <section class="card">
-    <div class="ratio"><div id="player"></div></div>
+    <div class="ratio"><div id="player"></div><div class="soundBtn" id="soundBtn" aria-label="Enable sound">🔊</div></div>
   </section>
 
   <div class="grid" id="grid"></div>
@@ -148,6 +167,15 @@ footer{margin-top:28px;border-top:1px solid var(--line);padding:18px 0 26px;colo
   const QUEUE = [MAIN_VIDEO, ...VIDEOS];
   let currentIndex = 0;
   let ytPlayer = null;
+
+  const soundBtn = document.getElementById("soundBtn");
+  function showSoundBtn(){
+    if(soundBtn) soundBtn.style.display = "flex";
+  }
+  function hideSoundBtn(){
+    if(soundBtn) soundBtn.style.display = "none";
+  }
+
 
   const grid = document.getElementById("grid");
   function thumbUrl(id) { return `https://i.ytimg.com/vi/${id}/hqdefault.jpg`; }
@@ -185,7 +213,7 @@ footer{margin-top:28px;border-top:1px solid var(--line);padding:18px 0 26px;colo
     if (host.querySelector("iframe")) return;
     host.innerHTML = `
       <iframe class="video"
-        src="https://www.youtube-nocookie.com/embed/${MAIN_VIDEO.id}?autoplay=1&mute=1&rel=0&modestbranding=1&playsinline=1"
+        src="https://www.youtube-nocookie.com/embed/${MAIN_VIDEO.id}?autoplay=1&rel=0&modestbranding=1&playsinline=1"
         title="TIKOONZ TV"
         allow="autoplay; encrypted-media; picture-in-picture"
         referrerpolicy="strict-origin-when-cross-origin"
@@ -203,10 +231,26 @@ footer{margin-top:28px;border-top:1px solid var(--line);padding:18px 0 26px;colo
           modestbranding: 1
         },
         events: {
+          
           onReady: () => {
-            try { ytPlayer.mute(); } catch(e) {}
+            try { ytPlayer.unMute(); ytPlayer.setVolume(100); } catch(e) {}
             try { ytPlayer.playVideo(); } catch(e) {}
+            setTimeout(() => {
+              try{
+                const muted = ytPlayer.isMuted && ytPlayer.isMuted();
+                const state = ytPlayer.getPlayerState && ytPlayer.getPlayerState();
+                // If sound is blocked, player often ends up muted or not playing.
+                if(muted || state !== YT.PlayerState.PLAYING){
+                  showSoundBtn();
+                } else {
+                  hideSoundBtn();
+                }
+              }catch(e){
+                showSoundBtn();
+              }
+            }, 900);
           },
+
           onStateChange: (e) => {
             if (e.data === YT.PlayerState.ENDED) nextVideo();
           },
@@ -225,6 +269,15 @@ footer{margin-top:28px;border-top:1px solid var(--line);padding:18px 0 26px;colo
   tag.onerror = ensureFallback;
   document.head.appendChild(tag);
   setTimeout(ensureFallback, 1200);
+
+  if(soundBtn){
+    soundBtn.addEventListener("click", () => {
+      try{ ytPlayer.unMute(); ytPlayer.setVolume(100); }catch(e){}
+      try{ ytPlayer.playVideo(); }catch(e){}
+      hideSoundBtn();
+    });
+  }
+
 </script>
 </body>
 </html>

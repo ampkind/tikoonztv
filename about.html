@@ -7,6 +7,8 @@
   <meta name="description" content="TIKOONZ TV — About." />
   <style>
 :root{
+  --logoH-desktop:82px;
+  --logoH-mobile:64px;
   --max:1120px;
   --bg:#0b0b0f;
   --card:#141420;
@@ -36,11 +38,16 @@ header{
 .headInner{
   max-width:var(--max);
   margin:0 auto;
-  padding:14px 24px;
-  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:34px 24px 26px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:22px;
 }
-.brand img{height:28px;display:block;}
-nav{display:flex;align-items:center;gap:16px;font-size:14px;color:var(--text2);}
+.brand{display:flex;align-items:center;justify-content:center;}
+.brand img{height:var(--logoH-desktop);width:auto;display:block;}
+nav{display:flex;align-items:center;justify-content:center;gap:28px;font-size:16px;color:var(--text2);}
 nav a{padding:8px 10px;border-radius:10px;border:1px solid transparent;}
 nav a:hover{border-color:var(--line2);background:rgba(255,255,255,.03);}
 nav a.active{border-color:rgba(255,255,255,.16);background:rgba(255,255,255,.03);}
@@ -93,6 +100,11 @@ footer{margin-top:28px;border-top:1px solid var(--line);padding:18px 0 26px;colo
 .footLinks{display:flex;gap:14px;flex-wrap:wrap;}
 .footLinks a{color:var(--text2);}
 .footLinks a:hover{text-decoration:underline;}
+@media(max-width:640px){
+  .headInner{padding:22px 14px 18px; gap:14px;}
+  .brand img{height:var(--logoH-mobile);}
+  nav{font-size:14px; gap:18px;}
+}
 </style>
 </head>
 <body>

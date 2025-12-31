@@ -7,6 +7,9 @@
   <meta name="description" content="TIKOONZ TV — Continuous playback." />
   <style>
 :root{
+  /* LOGO SCALE */
+  --logoH-desktop:78px;
+  --logoH-mobile:56px;
   --max:1120px;
   --bg:#0b0b0f;
   --card:#141420;
@@ -36,11 +39,27 @@ header{
 .headInner{
   max-width:var(--max);
   margin:0 auto;
-  padding:14px 24px;
-  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:34px 24px 26px; /* 더 아래로 여유 */
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:22px; /* 로고-네비 간격 확대 */
 }
-.brand img{height:28px;display:block;}
-nav{display:flex;align-items:center;gap:16px;font-size:14px;color:var(--text2);}
+.brand{display:flex;align-items:center;justify-content:center;}
+.brand img{
+  height:82px; /* 로고 조금 더 크게 */
+  width:auto;
+  display:block;
+}
+nav{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:28px; /* 네비 간격 확대 */
+  font-size:16px; /* 네비 글자 크게 */
+  color:var(--text2);
+}
 nav a{padding:8px 10px;border-radius:10px;border:1px solid transparent;}
 nav a:hover{border-color:var(--line2);background:rgba(255,255,255,.03);}
 nav a.active{border-color:rgba(255,255,255,.16);background:rgba(255,255,255,.03);}
@@ -112,6 +131,19 @@ footer{margin-top:28px;border-top:1px solid var(--line);padding:18px 0 26px;colo
   user-select:none;
 }
 .soundBtn:hover{ background:rgba(0,0,0,.60); }
+
+/* ✅ Mobile: keep header compact + visible */
+@media(max-width:640px){
+  .headInner{padding:22px 14px 18px; gap:14px;}
+  .brand img{height:64px;}
+  nav{font-size:14px; gap:18px;}
+  .wrap{padding:12px;}
+  .headInner{padding:12px 14px 10px; gap:10px;}
+  .brand img{height:var(--logoH-mobile);}
+  nav{gap:14px;font-size:13px;}
+  nav a{padding:6px 9px;}
+  .grid{margin-top:10px;}
+}
 </style>
 </head>
 <body>
@@ -213,7 +245,7 @@ footer{margin-top:28px;border-top:1px solid var(--line);padding:18px 0 26px;colo
     if (host.querySelector("iframe")) return;
     host.innerHTML = `
       <iframe class="video"
-        src="https://www.youtube-nocookie.com/embed/${MAIN_VIDEO.id}?autoplay=1&rel=0&modestbranding=1&playsinline=1"
+        src="https://www.youtube-nocookie.com/embed/${MAIN_VIDEO.id}?autoplay=1&mute=1&rel=0&modestbranding=1&playsinline=1"
         title="TIKOONZ TV"
         allow="autoplay; encrypted-media; picture-in-picture"
         referrerpolicy="strict-origin-when-cross-origin"
@@ -226,6 +258,7 @@ footer{margin-top:28px;border-top:1px solid var(--line);padding:18px 0 26px;colo
         videoId: MAIN_VIDEO.id,
         playerVars: {
           autoplay: 1,
+          mute: 1,
           playsinline: 1,
           rel: 0,
           modestbranding: 1

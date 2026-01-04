@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tikoonz.tv/sitemap.xml

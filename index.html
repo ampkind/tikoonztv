@@ -8,8 +8,8 @@
   <style>
 :root{
   /* LOGO SCALE */
-  --logoH-desktop:78px;
-  --logoH-mobile:56px;
+  --logoH-desktop:82px;
+  --logoH-mobile:64px;
   --max:1120px;
   --bg:#0b0b0f;
   --card:#141420;
@@ -48,7 +48,7 @@ header{
 }
 .brand{display:flex;align-items:center;justify-content:center;}
 .brand img{
-  height:82px; /* 로고 조금 더 크게 */
+  height:var(--logoH-desktop);
   width:auto;
   display:block;
 }
@@ -78,35 +78,6 @@ iframe.video{position:absolute;inset:0;width:100%;height:100%;border:0;}
 .thumb:hover{transform:translateY(-1px);border-color:var(--line2);}
 .thumbImg{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:#000;}
 
-.content{
-  padding:22px;
-  line-height:1.9;
-  color:var(--text2);
-  font-size:14px;
-  text-align:justify;
-  text-justify:inter-word;
-}
-.sectionLabel{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.85);margin:0 0 14px;}
-.content p{max-width:100%;margin:0 0 16px;}
-
-.langInline{
-  display:flex;
-  justify-content:flex-end;
-  gap:8px;
-  margin-bottom:12px;
-}
-.langInline button{
-  background:transparent;
-  border:1px solid rgba(255,255,255,.16);
-  color:rgba(255,255,255,.78);
-  padding:6px 9px;
-  border-radius:10px;
-  cursor:pointer;
-  font-size:12px;
-}
-.langInline button:hover{background:rgba(255,255,255,.05);}
-.langInline button.active{border-color:rgba(255,255,255,.32);background:rgba(255,255,255,.03);}
-
 footer{margin-top:28px;border-top:1px solid var(--line);padding:18px 0 26px;color:var(--text3);font-size:12px;}
 .footInner{max-width:var(--max);margin:0 auto;padding:0 24px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;}
 .footLinks{display:flex;gap:14px;flex-wrap:wrap;}
@@ -134,9 +105,6 @@ footer{margin-top:28px;border-top:1px solid var(--line);padding:18px 0 26px;colo
 
 /* ✅ Mobile: keep header compact + visible */
 @media(max-width:640px){
-  .headInner{padding:22px 14px 18px; gap:14px;}
-  .brand img{height:64px;}
-  nav{font-size:14px; gap:18px;}
   .wrap{padding:12px;}
   .headInner{padding:12px 14px 10px; gap:10px;}
   .brand img{height:var(--logoH-mobile);}
@@ -154,6 +122,7 @@ footer{margin-top:28px;border-top:1px solid var(--line);padding:18px 0 26px;colo
       <img src="tikoonz-logo.png" alt="TIKOONZ" />
     </a>
     <nav aria-label="Primary">
+      <a href="index.html" class="active">Home</a>
       <a href="about.html" class="">About</a>
       <a href="shows.html" class="">Shows</a>
     </nav>

@@ -277,9 +277,99 @@ footer{
   .footInner{display:block;text-align:center;}
   .footLinks{justify-content:center;margin-top:12px;}
 }
+
+/* Final TIKOONZ TV header: matched to tikoonz.com */
+header{
+  position:sticky;
+  top:0;
+  z-index:50;
+  backdrop-filter:blur(10px);
+  background:rgba(11,11,15,.72);
+  border-bottom:1px solid rgba(255,255,255,.10);
+  box-shadow:0 10px 30px rgba(0,0,0,.25);
+}
+.headInner{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:34px 24px 26px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:22px;
+  position:relative;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+}
+.brand img{
+  height:118px;
+  width:auto;
+  max-width:680px;
+  display:block;
+}
+nav{
+  display:flex;
+  transform:none !important;
+  align-items:center;
+  justify-content:center;
+  gap:28px;
+  font-size:16px;
+  color:var(--text2);
+}
+nav a{
+  padding:8px 10px;
+  border-radius:10px;
+  border:1px solid transparent;
+  transition:.16s ease;
+}
+nav a:hover,
+nav a.active{
+  border-color:var(--line2);
+  background:rgba(255,255,255,.03);
+  color:#fff;
+}
+.globalLang{
+  position:absolute;
+  top:34px;
+  right:24px;
+  display:flex;
+  gap:8px;
+  z-index:60;
+}
+.globalLang button{
+  appearance:none;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.03);
+  color:rgba(255,255,255,.78);
+  padding:7px 9px;
+  border-radius:11px;
+  font-size:12px;
+  letter-spacing:.06em;
+  cursor:pointer;
+}
+.globalLang button[aria-pressed="true"]{
+  color:#fff;
+  border-color:rgba(255,255,255,.38);
+  background:rgba(255,255,255,.08);
+}
+.langInline{display:none !important;}
+@media(max-width:640px){
+  .headInner{padding:18px 14px 14px;gap:12px;}
+  .brand img{height:78px;max-width:420px;}
+  nav{gap:14px;font-size:13px;}
+  nav a{padding:6px 9px;}
+  .globalLang{top:12px;right:12px;}
+  .globalLang button{padding:6px 8px;font-size:11px;}
+}
+
 </style>
 </head>
 <body>
+
 
 <header>
   <div class="headInner">
@@ -291,8 +381,13 @@ footer{
       <a href="about.html" class="active">About</a>
       <a href="shows.html" class="">Shows</a>
     </nav>
+    <div class="globalLang" role="group" aria-label="Language">
+      <button id="btnEN" type="button" aria-pressed="false">EN</button>
+      <button id="btnKO" type="button" aria-pressed="false">KO</button>
+    </div>
   </div>
 </header>
+
 
 <main class="wrap">
   <section class="card">
@@ -308,11 +403,7 @@ footer{
 
   <section class="card" style="margin-top:16px;">
     <div class="content">
-      <div class="langInline" aria-label="Language">
-        <button id="btnEN" type="button">EN</button>
-        <button id="btnKO" type="button">KO</button>
-      </div>
-      <p id="aboutLabel" class="sectionLabel">About</p>
+<p id="aboutLabel" class="sectionLabel">About</p>
       <h1 class="lead" data-i18n="headline">Music and the industry behind it.</h1>
       <div class="aboutTextGrid">
         <p data-i18n="about.p1">TIKOONZ TV is a media channel covering music and the music industry, including EDM, Hip-Hop, and K-POP.</p>
@@ -335,6 +426,35 @@ footer{
   </div>
 </footer>
 
+
+
+<script>
+(function(){
+  window.TIKOONZ_TV_LANG_KEY = 'tikoonz_tv_lang';
+
+  window.getTikoonzTVLang = function(){
+    try{
+      const saved = localStorage.getItem(window.TIKOONZ_TV_LANG_KEY);
+      if(saved === 'en' || saved === 'ko') return saved;
+    }catch(e){}
+    const nav = (navigator.language || 'en').toLowerCase();
+    return nav.startsWith('ko') ? 'ko' : 'en';
+  };
+
+  window.saveTikoonzTVLang = function(lang){
+    try{ localStorage.setItem(window.TIKOONZ_TV_LANG_KEY, lang); }catch(e){}
+  };
+
+  window.setGlobalLangButtons = function(lang){
+    const en = document.getElementById('btnEN');
+    const ko = document.getElementById('btnKO');
+    if(en) en.setAttribute('aria-pressed', lang === 'en' ? 'true' : 'false');
+    if(ko) ko.setAttribute('aria-pressed', lang === 'ko' ? 'true' : 'false');
+  };
+})();
+</script>
+
+
 <script>
 const I18N = {
   en: {
@@ -354,29 +474,23 @@ const I18N = {
     "about.p4": "국내외 아티스트, 기업, 레이블, 유통사와 협력하며 브랜드 사업을 전개하고 있습니다."
   }
 };
-function setActive(lang){
-  document.getElementById("btnEN").classList.toggle("active", lang === "en");
-  document.getElementById("btnKO").classList.toggle("active", lang === "ko");
-}
 function applyLang(lang){
-  const dict = I18N[lang] || I18N.en;
-  document.getElementById("aboutLabel").textContent = dict.label;
+  lang = lang === 'ko' ? 'ko' : 'en';
+  const dict = I18N[lang];
+  const label = document.getElementById("aboutLabel");
+  if(label) label.textContent = dict.label;
   document.querySelectorAll("[data-i18n]").forEach((el)=>{
     const key = el.getAttribute("data-i18n");
     if(dict[key]) el.textContent = dict[key];
   });
-  localStorage.setItem("tikoonz_lang", lang);
-  setActive(lang);
-}
-function detectLang(){
-  const saved = localStorage.getItem("tikoonz_lang");
-  if(saved === "ko" || saved === "en") return saved;
-  const nav = (navigator.language || "en").toLowerCase();
-  return nav.startsWith("ko") ? "ko" : "en";
+  document.documentElement.lang = lang;
+  setGlobalLangButtons(lang);
+  saveTikoonzTVLang(lang);
 }
 document.getElementById("btnEN").addEventListener("click",()=>applyLang("en"));
 document.getElementById("btnKO").addEventListener("click",()=>applyLang("ko"));
-applyLang(detectLang());
+applyLang(getTikoonzTVLang());
 </script>
+
 </body>
 </html>

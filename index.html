@@ -386,9 +386,9 @@ nav a.active{
       <img src="tikoonz-logo.png" alt="TIKOONZ TV" />
     </a>
     <nav aria-label="Primary">
-      <a href="index.html" class="active">Home</a>
-      <a href="about.html" class="">About</a>
-      <a href="shows.html" class="">Shows</a>
+      <a href="index.html" class="active" data-i18n="nav.home">Home</a>
+      <a href="about.html" class="" data-i18n="nav.about">About</a>
+      <a href="shows.html" class="" data-i18n="nav.shows">Shows</a>
     </nav>
     <div class="globalLang" role="group" aria-label="Language">
       <button id="btnEN" type="button" aria-pressed="false">EN</button>
@@ -427,18 +427,50 @@ nav a.active{
 
 
 <script>
+(function(){
+  window.TIKOONZ_TV_LANG_KEY = 'tikoonz_tv_lang';
+
+  window.getTikoonzTVLang = function(){
+    try{
+      const saved = localStorage.getItem(window.TIKOONZ_TV_LANG_KEY);
+      if(saved === 'en' || saved === 'ko') return saved;
+    }catch(e){}
+    const nav = (navigator.language || 'en').toLowerCase();
+    return nav.startsWith('ko') ? 'ko' : 'en';
+  };
+
+  window.saveTikoonzTVLang = function(lang){
+    try{ localStorage.setItem(window.TIKOONZ_TV_LANG_KEY, lang); }catch(e){}
+  };
+
+  window.setGlobalLangButtons = function(lang){
+    const en = document.getElementById('btnEN');
+    const ko = document.getElementById('btnKO');
+    if(en) en.setAttribute('aria-pressed', lang === 'en' ? 'true' : 'false');
+    if(ko) ko.setAttribute('aria-pressed', lang === 'ko' ? 'true' : 'false');
+  };
+})();
+</script>
+
+<script>
 const HOME_I18N = {
   en: {
+    "nav.home": "Home",
+    "nav.about": "About",
+    "nav.shows": "Shows",
     "home.title": "Music. Media. Industry.",
     "home.copy": "Video stories covering EDM, Hip-Hop, K-POP, and the music industry.",
     "home.watch": "Watch Shows",
     "home.about": "About"
   },
   ko: {
+    "nav.home": "홈",
+    "nav.about": "소개",
+    "nav.shows": "쇼",
     "home.title": "음악. 미디어. 산업.",
     "home.copy": "EDM, Hip-Hop, K-POP과 음악 산업의 흐름을 영상으로 다룹니다.",
-    "home.watch": "Shows 보기",
-    "home.about": "About"
+    "home.watch": "쇼 보기",
+    "home.about": "소개"
   }
 };
 function applyLang(lang){
@@ -546,31 +578,7 @@ if(soundBtn){
 </script>
 
 
-<script>
-(function(){
-  window.TIKOONZ_TV_LANG_KEY = 'tikoonz_tv_lang';
 
-  window.getTikoonzTVLang = function(){
-    try{
-      const saved = localStorage.getItem(window.TIKOONZ_TV_LANG_KEY);
-      if(saved === 'en' || saved === 'ko') return saved;
-    }catch(e){}
-    const nav = (navigator.language || 'en').toLowerCase();
-    return nav.startsWith('ko') ? 'ko' : 'en';
-  };
-
-  window.saveTikoonzTVLang = function(lang){
-    try{ localStorage.setItem(window.TIKOONZ_TV_LANG_KEY, lang); }catch(e){}
-  };
-
-  window.setGlobalLangButtons = function(lang){
-    const en = document.getElementById('btnEN');
-    const ko = document.getElementById('btnKO');
-    if(en) en.setAttribute('aria-pressed', lang === 'en' ? 'true' : 'false');
-    if(ko) ko.setAttribute('aria-pressed', lang === 'ko' ? 'true' : 'false');
-  };
-})();
-</script>
 
 </body>
 </html>

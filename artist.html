@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Artist — TIKOONZ</title>
+<meta name="description" content="TIKOONZ Artist — ICE UNICORN" />
+<link rel="stylesheet" href="./assets/style.css" />
+<style>
+:root{
+  --max:1120px;
+  --bg:#0b0b0f;
+  --card:#141420;
+  --line:rgba(255,255,255,.10);
+  --line2:rgba(255,255,255,.16);
+  --text2:rgba(255,255,255,.78);
+  --radius:16px;
+}
+body{ background:var(--bg); }
+header{
+  position:sticky; top:0; z-index:50;
+  backdrop-filter:blur(10px);
+  background:rgba(11,11,15,.72);
+  border-bottom:1px solid var(--line);
+}
+.headInner{
+  max-width:var(--max); margin:0 auto;
+  padding:34px 24px 26px;
+  display:flex; flex-direction:column;
+  align-items:center; gap:22px;
+}
+.brand img{ height:82px; }
+nav.primaryNav{ display:flex; gap:28px; color:var(--text2); }
+nav.primaryNav a{
+  cursor:pointer; padding:8px 10px; border-radius:10px; }
+nav.primaryNav a.active{ border:1px solid var(--line2); }
+.wrap{ max-width:var(--max); margin:0 auto; padding:44px 24px 24px; }
+.card{ background:var(--card); border:1px solid var(--line); border-radius:var(--radius); }
+.inner{ padding:32px 26px 30px; max-width:860px; }
+.grid{ display:grid; grid-template-columns:320px 1fr; gap:22px; }
+.logoBox{ border:1px solid var(--line); border-radius:14px; padding:18px; }
+.logoBox img{ width:100%; max-width:260px; }
+.kicker{ font-size:12px; letter-spacing:.22em; color:var(--text2); }
+h1{ font-size:24px; margin:0 0 14px; }
+.tagRow{ display:flex; gap:8px; margin:12px 0 18px; }
+.tag{ font-size:12px; padding:8px 10px; border-radius:999px; border:1px solid var(--line2); }
+.copy p{ font-size:16px; line-height:1.88; margin:0 0 16px; }
+.sectionTitle{ margin:24px 0 10px; font-size:12px; letter-spacing:.22em; color:var(--text2); }
+.table{ width:100%; border:1px solid var(--line); border-radius:14px; }
+.table th,.table td{ padding:12px 14px; font-size:14px; }
+.ctaRow{ margin-top:18px; display:flex; gap:10px; flex-wrap:wrap; }
+.btn{ padding:10px 12px; border-radius:12px; border:1px solid var(--line2); text-decoration:none; }
+.btn.ghost{ color:var(--text2); }
+
+.langToggle{
+  margin:14px 0 16px;
+  display:flex;
+  gap:10px;
+}
+.langToggle button{
+  appearance:none;
+  border:1px solid var(--line2);
+  background:rgba(255,255,255,.02);
+  color:var(--text2);
+  padding:8px 10px;
+  border-radius:12px;
+  font-size:13px;
+  cursor:pointer;
+}
+.langToggle button[aria-pressed="true"]{
+  border-color:rgba(255,255,255,.32);
+  background:rgba(255,255,255,.06);
+  color:#fff;
+}
+
+@media (max-width:900px){ .grid{ grid-template-columns:1fr; } }
+
+.artistHub{ margin-top:24px; display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.hubCard{ border:1px solid var(--line); border-radius:14px; padding:16px; background:rgba(255,255,255,.02); }
+.hubCard strong{ display:block; font-size:18px; margin-bottom:8px; }
+.hubCard span{ display:block; color:var(--text2); font-size:14px; line-height:1.65; margin-bottom:14px; }
+@media (max-width:700px){ .artistHub{ grid-template-columns:1fr; } }
+
+/* TIKOONZ v2 final polish */
+nav.primaryNav a,
+.brand,
+.btn,
+.linkCard,
+.platformFooter a,
+.item,
+.langToggle button,
+.langInline button{
+  cursor:pointer;
+}
+
+.footer-links{
+  margin-top:22px;
+  padding:18px 0 8px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  color:rgba(255,255,255,.58);
+  font-size:13px;
+}
+
+.footer-links .split,
+.platformFooter{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+
+.platformFooter a{
+  min-width:118px;
+  height:38px;
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:12px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,.02);
+  color:rgba(255,255,255,.78);
+  text-decoration:none;
+  font-size:13px;
+  letter-spacing:.02em;
+  transition:.16s ease;
+}
+
+.platformFooter a:hover{
+  border-color:rgba(255,255,255,.34);
+  background:rgba(255,255,255,.06);
+  color:rgba(255,255,255,.94);
+  transform:translateY(-1px);
+}
+
+.btn{
+  transition:.16s ease;
+}
+
+.btn:hover{
+  transform:translateY(-1px);
+}
+
+nav.primaryNav a{
+  transition:.16s ease;
+}
+
+@media (max-width:640px){
+  .footer-links{
+    display:block;
+    text-align:center;
+  }
+  .footer-links .split,
+  .platformFooter{
+    margin-top:12px;
+    justify-content:center;
+  }
+  .platformFooter a{
+    width:100%;
+    max-width:260px;
+  }
+}
+
+
+/* Synced language controls */
+.langToggle, .langInline{display:flex;gap:10px;align-items:center;margin:14px 0 16px;}
+.langToggle button, .langInline button{
+  appearance:none;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.02);
+  color:rgba(255,255,255,.78);padding:8px 10px;border-radius:12px;font-size:13px;letter-spacing:.06em;cursor:pointer;
+}
+.langToggle button[aria-pressed="true"], .langInline button.active{
+  color:#fff;border-color:rgba(255,255,255,.32);background:rgba(255,255,255,.06);
+}
+
+
+/* Global top-right language switch */
+.headInner{ position:relative; }
+.globalLang{
+  position:absolute;
+  top:34px;
+  right:24px;
+  display:flex;
+  gap:8px;
+  z-index:60;
+}
+.globalLang button{
+  appearance:none;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.03);
+  color:rgba(255,255,255,.78);
+  padding:7px 9px;
+  border-radius:11px;
+  font-size:12px;
+  letter-spacing:.06em;
+  cursor:pointer;
+}
+.globalLang button[aria-pressed="true"]{
+  color:#fff;
+  border-color:rgba(255,255,255,.38);
+  background:rgba(255,255,255,.08);
+}
+@media(max-width:640px){
+  .globalLang{
+    top:12px;
+    right:12px;
+  }
+  .globalLang button{
+    padding:6px 8px;
+    font-size:11px;
+  }
+}
+
+
+/* ===== TIKOONZ FINAL unified header / language ===== */
+header.siteHeader{
+  position:sticky;
+  top:0;
+  z-index:50;
+  backdrop-filter:blur(10px);
+  background:rgba(11,11,15,.72);
+  border-bottom:1px solid rgba(255,255,255,.10);
+  box-shadow:0 10px 30px rgba(0,0,0,.25);
+}
+.siteHeader .headInner{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:34px 24px 26px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:22px;
+  position:relative;
+}
+.siteHeader .brand{
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.siteHeader .brand img{
+  height:82px;
+  width:auto;
+  display:block;
+}
+.siteHeader nav.primaryNav{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:28px;
+  font-size:16px;
+  color:var(--text2);
+  flex-wrap:wrap;
+}
+.siteHeader nav.primaryNav a{
+  cursor:pointer;
+  padding:8px 10px;
+  border-radius:10px;
+  border:1px solid transparent;
+  text-decoration:none;
+  color:inherit;
+  transition:.16s ease;
+}
+.siteHeader nav.primaryNav a:hover,
+.siteHeader nav.primaryNav a.active{
+  border-color:rgba(255,255,255,.16);
+  background:rgba(255,255,255,.03);
+  color:rgba(255,255,255,.94);
+}
+.globalLang{
+  position:absolute;
+  top:34px;
+  right:24px;
+  display:flex;
+  gap:8px;
+  z-index:60;
+}
+.globalLang button{
+  appearance:none;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.03);
+  color:rgba(255,255,255,.78);
+  padding:7px 9px;
+  border-radius:11px;
+  font-size:12px;
+  letter-spacing:.06em;
+  cursor:pointer;
+}
+.globalLang button[aria-pressed="true"]{
+  color:#fff;
+  border-color:rgba(255,255,255,.38);
+  background:rgba(255,255,255,.08);
+}
+.langToggle,
+.langInline{
+  display:none !important;
+}
+@media(max-width:640px){
+  .siteHeader .headInner{padding:18px 14px 14px;gap:12px;}
+  .siteHeader .brand img{height:56px;}
+  .siteHeader nav.primaryNav{gap:14px;font-size:13px;}
+  .siteHeader nav.primaryNav a{padding:6px 9px;}
+  .globalLang{top:12px;right:12px;}
+  .globalLang button{padding:6px 8px;font-size:11px;}
+}
+
+</style>
+
+<script>
+(function(){
+  window.TIKOONZ_LANG_KEY = 'tikoonz_lang';
+
+  window.getTikoonzLang = function(){
+    try{
+      const saved = localStorage.getItem(window.TIKOONZ_LANG_KEY);
+      if(saved === 'en' || saved === 'ko') return saved;
+    }catch(e){}
+    const nav = (navigator.language || 'ko').toLowerCase();
+    return nav.startsWith('en') ? 'en' : 'ko';
+  };
+
+  window.saveTikoonzLang = function(lang){
+    try{ localStorage.setItem(window.TIKOONZ_LANG_KEY, lang); }catch(e){}
+  };
+
+  window.updateLangButtons = function(lang){
+    const btnEn = document.getElementById('btnEn');
+    const btnKo = document.getElementById('btnKo');
+    if(btnEn) btnEn.setAttribute('aria-pressed', lang === 'en' ? 'true' : 'false');
+    if(btnKo) btnKo.setAttribute('aria-pressed', lang === 'ko' ? 'true' : 'false');
+  };
+})();
+</script>
+
+</head>
+<body class="page-artist">
+
+<header class="siteHeader">
+  <div class="headInner">
+    <a class="brand" href="./index.html">
+      <img src="./assets/logo.png" alt="TIKOONZ">
+    </a>
+    <nav class="primaryNav" aria-label="Primary">
+      <a href="./about.html">About</a>
+      <a href="./artist.html" class="active">Artists</a>
+      <a href="./partners.html">Partners</a>
+      <a href="./contact.html">Contact</a>
+    </nav>
+    <div class="globalLang" role="group" aria-label="Language">
+      <button id="btnEn" type="button" aria-pressed="false">EN</button>
+      <button id="btnKo" type="button" aria-pressed="false">KO</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+<section class="card"><div class="inner">
+<div class="grid">
+  <div class="logoBox"><img src="./assets/iceunicorn.png" alt="ICE UNICORN logo"></div>
+  <div>
+    <div class="kicker" data-i18n="artist.kicker">Artist 01</div>
+    <h1>ICE UNICORN</h1>
+    <div class="tagRow"><span class="tag">EDM</span><span class="tag">DJ Group</span><span class="tag">TIKOONZ</span></div>
+<div id="ko" class="copy">
+      <p>ICE UNICORN은 TIKOONZ의 첫 번째 아티스트 그룹입니다. 첫 번째 릴리즈를 통해 팀의 방향성과 사운드를 공식적으로 선보입니다.</p>
+      <p>EDM을 중심으로 한 DJ 그룹으로서, 무대의 에너지와 사운드의 밀도를 핵심으로 삼습니다. 클럽과 페스티벌, 라이브 콘텐츠까지 음악이 도달하는 전체 경로를 설계합니다.</p>
+    </div>
+
+    <div id="en" class="copy" style="display:none;">
+      <p>ICE UNICORN is TIKOONZ’s first artist group. Through its first release, the group officially presents its direction and sound.</p>
+      <p>An EDM-focused DJ group, centered on stage energy and sound density, designing the full path of how music reaches audiences—from clubs and festivals to live content.</p>
+    </div>
+
+    
+    <div class="sectionTitle" data-i18n="artist.latest">Latest Release</div>
+    <table class="table">
+      <tr><th>Title</th><td>ICE UNICORN — ICE CRYSTAL <span class="tag" style="margin-left:8px;">Latest</span></td></tr>
+      <tr><th data-i18n="artist.statusLabel">Status</th><td data-i18n="artist.status">Released</td></tr>
+      <tr><th data-i18n="artist.listenLabel">Listen</th><td data-i18n="artist.listen">Available via Ditto & major platforms</td></tr>
+    </table>
+
+    <div class="artistHub">
+      <div class="hubCard">
+        <strong data-i18n="artist.officialReleases">Official Releases</strong>
+        <span data-i18n="artist.releasesDesc">ICE CRYSTAL, ICE EDM, ICE COSMOSS 등 공식 발매 음원을 한곳에서 확인합니다.</span>
+        <a class="btn" href="./listen-stream.html">Releases</a>
+      </div>
+      <div class="hubCard">
+        <strong data-i18n="artist.watchShop">Watch & Shop</strong>
+        <span data-i18n="artist.watchDesc">뮤직비디오 장면과 제품을 연결하는 인터랙티브 커머스 테스트 페이지입니다.</span>
+        <a class="btn" href="./watch-shop.html">Watch & Shop</a>
+      </div>
+    </div>
+
+    <div class="ctaRow">
+      <a class="btn ghost" href="https://tikoonz.tv" target="_blank" rel="noopener">tikoonz.tv</a>
+      <a class="btn ghost" href="https://tikoonz.shop" target="_blank" rel="noopener">tikoonz.shop</a>
+      <a class="btn" href="./contact.html">Contact</a>
+    </div>
+
+  </div>
+</div>
+</div></section>
+
+  <footer class="footer-links">
+    <div>© 2026 TIKOONZ</div>
+    <div class="split platformFooter">
+      <a href="https://tikoonz.com" target="_blank" rel="noopener">tikoonz.com</a>
+      <a href="https://tikoonz.tv" target="_blank" rel="noopener">tikoonz.tv</a>
+      <a href="https://tikoonz.shop" target="_blank" rel="noopener">tikoonz.shop</a>
+    </div>
+  </footer>
+
+</main>
+
+
+
+
+<script>
+(function(){
+  const ko = document.getElementById('ko');
+  const en = document.getElementById('en');
+  const I18N = {
+    ko: {
+      "artist.kicker":"Artist 01","artist.latest":"Latest Release","artist.statusLabel":"Status","artist.status":"Released",
+      "artist.listenLabel":"Listen","artist.listen":"Ditto 및 주요 플랫폼에서 감상 가능",
+      "artist.officialReleases":"Official Releases",
+      "artist.releasesDesc":"ICE CRYSTAL, ICE EDM, ICE COSMOSS 등 공식 발매 음원을 한곳에서 확인합니다.",
+      "artist.watchShop":"Watch & Shop","artist.watchDesc":"뮤직비디오 장면과 제품을 연결하는 인터랙티브 커머스 테스트 페이지입니다."
+    },
+    en: {
+      "artist.kicker":"Artist 01","artist.latest":"Latest Release","artist.statusLabel":"Status","artist.status":"Released",
+      "artist.listenLabel":"Listen","artist.listen":"Available via Ditto and major platforms",
+      "artist.officialReleases":"Official Releases",
+      "artist.releasesDesc":"Explore official ICE UNICORN releases including ICE CRYSTAL, ICE EDM, and ICE COSMOSS.",
+      "artist.watchShop":"Watch & Shop","artist.watchDesc":"An interactive commerce page connecting music video scenes with featured products."
+    }
+  };
+  function setLang(lang){
+    lang = lang === 'en' ? 'en' : 'ko';
+    const isKo = lang === 'ko';
+    if(ko && en){ ko.style.display = isKo ? '' : 'none'; en.style.display = isKo ? 'none' : ''; }
+    document.documentElement.lang = lang;
+    updateLangButtons(lang);
+    const dict = I18N[lang] || I18N.ko;
+    document.querySelectorAll('[data-i18n]').forEach(el=>{
+      const key = el.getAttribute('data-i18n');
+      if(dict[key]) el.textContent = dict[key];
+    });
+    saveTikoonzLang(lang);
+  }
+  document.getElementById('btnEn').addEventListener('click',()=>setLang('en'));
+  document.getElementById('btnKo').addEventListener('click',()=>setLang('ko'));
+  setLang(getTikoonzLang());
+})();
+</script>
+
+</body>
+</html>

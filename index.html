@@ -495,6 +495,426 @@ header .lang{
   .videoCard .videoMedia::after{bottom:-14px}
 }
 
+
+/* v13 — TIKOONZ TV WALL
+   Main player remains the single large hero above.
+   Selected videos below become an asymmetric CRT/video-art wall. */
+.editorial{
+  display:grid !important;
+  grid-template-columns:repeat(12,1fr) !important;
+  gap:46px 26px !important;
+  align-items:center;
+  padding:34px 0 70px;
+}
+.videoCard{
+  position:relative;
+  padding:16px 20px 28px !important;
+  background:linear-gradient(145deg,#171717,#050505 68%) !important;
+  border:1px solid #292929 !important;
+  border-radius:20px 20px 15px 15px !important;
+  box-shadow:
+    inset 0 0 0 2px #050505,
+    inset 0 0 22px rgba(255,255,255,.025),
+    0 25px 60px rgba(0,0,0,.62) !important;
+  transform:rotate(var(--tilt,0deg));
+  overflow:visible;
+}
+.videoCard:nth-child(1){grid-column:1/span 5;--tilt:-1deg}
+.videoCard:nth-child(2){grid-column:7/span 6;--tilt:.7deg}
+.videoCard:nth-child(3){grid-column:2/span 4;--tilt:.8deg}
+.videoCard:nth-child(4){grid-column:6/span 5;--tilt:-.6deg}
+.videoCard:nth-child(5){grid-column:1/span 6;--tilt:.4deg}
+.videoCard:nth-child(6){grid-column:8/span 4;--tilt:-1deg}
+.videoCard:nth-child(7){grid-column:2/span 5;--tilt:-.4deg}
+.videoCard:nth-child(8){grid-column:7/span 6;--tilt:.6deg}
+
+.videoMedia{
+  position:relative;
+  border:8px solid #050505 !important;
+  border-radius:44% / 8% !important;
+  overflow:hidden !important;
+  background:#000;
+  box-shadow:
+    inset 0 0 24px rgba(255,255,255,.08),
+    0 0 0 1px #303030 !important;
+}
+.videoMedia::before,
+.videoMedia::after{display:none !important}
+
+/* CRT glass */
+.videoMedia img,.videoPreview{
+  border-radius:44% / 8%;
+}
+.videoMedia::after{
+  display:block !important;
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:5;
+  pointer-events:none;
+  border-radius:44% / 8%;
+  background:
+    repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,transparent 1px 4px),
+    radial-gradient(ellipse at center,transparent 56%,rgba(0,0,0,.38) 100%);
+  mix-blend-mode:screen;
+}
+
+/* small TV controls */
+.videoCard::before{
+  display:block !important;
+  content:"";
+  position:absolute;
+  right:22px;
+  bottom:9px;
+  width:7px;height:7px;
+  border-radius:50%;
+  background:#a4141b;
+  box-shadow:-14px 0 0 #262626,-28px 0 0 #262626;
+}
+.videoCard::after{
+  display:block !important;
+  content:"TIKOONZ / VIDEO UNIT";
+  position:absolute;
+  left:22px;
+  bottom:8px;
+  width:auto;height:auto;
+  border:0;
+  color:#555;
+  font-size:7px;
+  letter-spacing:.17em;
+}
+.videoCard .meta{
+  position:absolute;
+  left:20px;
+  right:20px;
+  top:100%;
+  margin-top:11px !important;
+  padding:0 !important;
+  background:transparent;
+  border:0 !important;
+}
+.videoCard:hover{
+  transform:rotate(0deg) translateY(-8px) scale(1.012) !important;
+  border-color:#383838 !important;
+  box-shadow:0 34px 85px rgba(0,0,0,.78) !important;
+}
+.videoHint{
+  border:0 !important;
+  background:rgba(0,0,0,.68) !important;
+  letter-spacing:.18em;
+}
+
+/* subtle floor/cable atmosphere behind the TV wall */
+.gallery{position:relative;overflow:hidden}
+.gallery::before{
+  content:"";
+  position:absolute;
+  left:5%;right:5%;bottom:3%;
+  height:1px;
+  background:linear-gradient(90deg,transparent,#292929 20%,#111 50%,#292929 80%,transparent);
+  box-shadow:0 12px 50px rgba(255,255,255,.035);
+}
+
+@media(max-width:800px){
+  .editorial{
+    grid-template-columns:repeat(2,1fr) !important;
+    gap:42px 14px !important;
+    padding-top:20px;
+  }
+  .videoCard:nth-child(n){
+    grid-column:auto !important;
+    --tilt:0deg;
+    padding:9px 10px 19px !important;
+    border-radius:12px !important;
+  }
+  .videoMedia{
+    border-width:5px !important;
+    border-radius:32% / 7% !important;
+  }
+  .videoCard::after{left:11px;bottom:5px;font-size:5px}
+  .videoCard::before{right:12px;bottom:6px;width:5px;height:5px;box-shadow:-10px 0 0 #262626,-20px 0 0 #262626}
+  .videoCard .meta{left:10px;right:10px;margin-top:7px !important}
+}
+@media(max-width:520px){
+  .editorial{
+    grid-template-columns:1fr !important;
+    gap:45px !important;
+  }
+  .videoCard:nth-child(n){grid-column:1 !important}
+}
+
+
+/* v14 — sculptural CRT installation, no film-strip language */
+.gallery{overflow:hidden}
+.editorial{
+  position:relative !important;
+  display:block !important;
+  min-height:1850px;
+  max-width:1500px;
+  margin:0 auto;
+  padding:90px 0 150px !important;
+  perspective:1400px;
+}
+.videoCard{
+  position:absolute !important;
+  width:var(--w,320px);
+  left:var(--x,0%);
+  top:var(--y,0px);
+  padding:15px 18px 31px !important;
+  border-radius:19px 19px 13px 13px !important;
+  background:linear-gradient(135deg,#1d1d1d 0%,#080808 62%,#151515 100%) !important;
+  border:1px solid #343434 !important;
+  box-shadow:
+    inset 8px 0 14px rgba(255,255,255,.025),
+    inset -12px -8px 20px rgba(0,0,0,.75),
+    14px 22px 34px rgba(0,0,0,.72) !important;
+  transform:
+    perspective(900px)
+    rotateY(var(--ry,0deg))
+    rotateX(var(--rx,0deg))
+    rotateZ(var(--rz,0deg));
+  transform-origin:center;
+  z-index:var(--z,2);
+  transition:transform .45s ease,filter .45s ease,z-index 0s;
+}
+.videoCard::before{
+  display:block !important;
+  content:"";
+  position:absolute;
+  right:17px;bottom:10px;
+  width:8px;height:8px;border-radius:50%;
+  background:#9e1720;
+  box-shadow:-16px 0 0 #303030,-32px 0 0 #303030;
+}
+.videoCard::after{
+  display:block !important;
+  content:"";
+  position:absolute;
+  top:14%;right:-13px;
+  width:13px;height:72%;
+  background:linear-gradient(90deg,#141414,#020202);
+  border:1px solid #242424;
+  border-left:0;
+  transform:skewY(-7deg);
+  opacity:.95;
+}
+.videoMedia{
+  border:7px solid #050505 !important;
+  border-radius:38% / 7% !important;
+  background:#000;
+  box-shadow:
+    inset 0 0 28px rgba(255,255,255,.06),
+    0 0 0 1px #383838 !important;
+}
+.videoMedia::before{display:none !important}
+.videoMedia::after{
+  display:block !important;
+  content:"";
+  position:absolute;inset:0;z-index:5;pointer-events:none;
+  border-radius:38% / 7%;
+  background:
+    repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,transparent 1px 4px),
+    radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.42) 100%);
+}
+.videoCard .meta{
+  position:absolute;left:18px;right:18px;top:100%;
+  margin-top:8px !important;padding:0 !important;border:0 !important;background:none !important;
+}
+.videoCard:hover{
+  z-index:50 !important;
+  transform:perspective(900px) rotateY(0deg) rotateX(0deg) rotateZ(0deg) translateY(-10px) scale(1.06) !important;
+  filter:brightness(1.08);
+}
+
+/* 23-screen sculptural composition: stacks, tilted sets and two loose totem silhouettes */
+.videoCard:nth-child(1) {--x:2%; --y:100px; --w:310px;--ry:15deg;--rz:-3deg;--z:5}
+.videoCard:nth-child(2) {--x:20%;--y:20px;  --w:245px;--ry:-8deg;--rz:2deg;--z:3}
+.videoCard:nth-child(3) {--x:38%;--y:125px; --w:360px;--ry:4deg;--rz:-1deg;--z:7}
+.videoCard:nth-child(4) {--x:69%;--y:55px;  --w:265px;--ry:-16deg;--rz:3deg;--z:4}
+.videoCard:nth-child(5) {--x:82%;--y:210px; --w:205px;--ry:-22deg;--rz:4deg;--z:2}
+.videoCard:nth-child(6) {--x:7%; --y:405px; --w:220px;--ry:18deg;--rz:3deg;--z:3}
+.videoCard:nth-child(7) {--x:24%;--y:360px; --w:330px;--ry:-7deg;--rz:-2deg;--z:8}
+.videoCard:nth-child(8) {--x:52%;--y:430px; --w:245px;--ry:10deg;--rz:2deg;--z:4}
+.videoCard:nth-child(9) {--x:70%;--y:370px; --w:350px;--ry:-11deg;--rz:-2deg;--z:7}
+.videoCard:nth-child(10){--x:1%; --y:700px; --w:270px;--ry:20deg;--rz:-4deg;--z:4}
+.videoCard:nth-child(11){--x:18%;--y:650px; --w:205px;--ry:-5deg;--rz:3deg;--z:5}
+.videoCard:nth-child(12){--x:34%;--y:710px; --w:300px;--ry:8deg;--rz:-2deg;--z:8}
+.videoCard:nth-child(13){--x:57%;--y:665px; --w:215px;--ry:-12deg;--rz:3deg;--z:4}
+.videoCard:nth-child(14){--x:73%;--y:700px; --w:315px;--ry:-18deg;--rz:2deg;--z:6}
+.videoCard:nth-child(15){--x:8%; --y:970px; --w:355px;--ry:12deg;--rz:2deg;--z:7}
+.videoCard:nth-child(16){--x:35%;--y:1015px;--w:215px;--ry:-10deg;--rz:-3deg;--z:3}
+.videoCard:nth-child(17){--x:51%;--y:945px; --w:335px;--ry:6deg;--rz:1deg;--z:8}
+.videoCard:nth-child(18){--x:78%;--y:1010px;--w:220px;--ry:-20deg;--rz:4deg;--z:4}
+.videoCard:nth-child(19){--x:2%; --y:1300px;--w:225px;--ry:18deg;--rz:-2deg;--z:3}
+.videoCard:nth-child(20){--x:18%;--y:1240px;--w:310px;--ry:-7deg;--rz:2deg;--z:6}
+.videoCard:nth-child(21){--x:43%;--y:1320px;--w:250px;--ry:10deg;--rz:-3deg;--z:5}
+.videoCard:nth-child(22){--x:62%;--y:1245px;--w:335px;--ry:-9deg;--rz:1deg;--z:8}
+.videoCard:nth-child(23){--x:84%;--y:1360px;--w:190px;--ry:-22deg;--rz:5deg;--z:2}
+
+/* installation floor + loose cable lines */
+.editorial::before{
+  content:"";
+  position:absolute;left:-8%;right:-8%;bottom:70px;height:180px;
+  background:radial-gradient(ellipse at center,rgba(255,255,255,.055),transparent 64%);
+  transform:perspective(500px) rotateX(70deg);
+  filter:blur(7px);
+}
+.editorial::after{
+  content:"";
+  position:absolute;left:4%;right:4%;bottom:115px;height:1px;
+  background:linear-gradient(90deg,transparent,#272727 12%,#090909 35%,#333 57%,#0a0a0a 78%,transparent);
+  box-shadow:130px 20px 0 #161616,-210px 34px 0 #111;
+}
+
+@media(max-width:900px){
+ .editorial{
+   display:grid !important;
+   grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+   gap:48px 18px !important;
+   min-height:0 !important;
+   padding:45px 8px 90px !important;
+ }
+ .videoCard:nth-child(n){
+   position:relative !important;
+   left:auto !important;top:auto !important;
+   width:auto !important;
+   transform:none !important;
+ }
+ .videoCard:hover{transform:translateY(-5px) scale(1.015) !important}
+ .editorial::before,.editorial::after{display:none}
+}
+@media(max-width:520px){
+ .editorial{grid-template-columns:1fr !important;gap:50px !important}
+}
+
+
+/* =========================================================
+   v16 FINAL DIRECTION — 23-SCREEN 3D VIDEO ART INSTALLATION
+   - exactly 23 physical CRT screens / exactly 23 videos
+   - no film perforations, dots, scanlines, frame cards or labels
+   - thumbnails/video live INSIDE the CRT glass
+   ========================================================= */
+.gallery{
+  position:relative!important;
+  padding:0!important;
+  margin:0!important;
+  background:#000!important;
+  overflow:hidden!important;
+}
+.gallery .sectionHead{display:none!important}
+.editorial{
+  position:relative!important;
+  display:block!important;
+  width:100%!important;
+  max-width:1672px!important;
+  aspect-ratio:1672/941!important;
+  min-height:0!important;
+  margin:0 auto!important;
+  padding:0!important;
+  background:url("./tikoonz-tv-23screen-installation.png") center/100% 100% no-repeat!important;
+  perspective:none!important;
+}
+.editorial::before,.editorial::after{display:none!important}
+
+/* Screen overlays only — TV body remains the rendered 3D object. */
+.videoCard{
+  position:absolute!important;
+  margin:0!important;
+  padding:0!important;
+  background:#000!important;
+  border:0!important;
+  border-radius:2%!important;
+  box-shadow:none!important;
+  overflow:hidden!important;
+  transform:none!important;
+  z-index:10!important;
+  cursor:pointer;
+  transition:filter .22s ease, transform .22s ease!important;
+}
+.videoCard::before,.videoCard::after,
+.videoCard .meta,.videoHint{display:none!important}
+
+.videoMedia{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  aspect-ratio:auto!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:2%!important;
+  box-shadow:none!important;
+  overflow:hidden!important;
+  background:#000!important;
+}
+.videoMedia::before,.videoMedia::after{display:none!important}
+
+.videoMedia img,.videoPreview{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  border:0!important;
+  border-radius:2%!important;
+  filter:brightness(.88) contrast(1.08) saturate(.96)!important;
+}
+.videoPreview{
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .22s ease;
+}
+.videoCard.previewing .videoPreview{opacity:1!important}
+.videoCard.previewing .videoMedia img{opacity:0!important}
+.videoCard:hover{
+  z-index:30!important;
+  filter:brightness(1.10)!important;
+  transform:scale(1.012)!important;
+}
+
+/* The generated white 01–23 labels are completely covered by these live screens. */
+.videoCard:nth-child(1){left:33.014%!important;top:11.902%!important;width:33.971%!important;height:34.219%!important;}
+.videoCard:nth-child(2){left:16.089%!important;top:12.540%!important;width:8.553%!important;height:10.733%!important;}
+.videoCard:nth-child(3){left:16.627%!important;top:25.292%!important;width:10.167%!important;height:12.434%!important;}
+.videoCard:nth-child(4){left:16.986%!important;top:37.620%!important;width:9.868%!important;height:12.540%!important;}
+.videoCard:nth-child(5){left:26.734%!important;top:39.745%!important;width:6.699%!important;height:10.202%!important;}
+.videoCard:nth-child(6){left:7.237%!important;top:50.372%!important;width:14.115%!important;height:13.709%!important;}
+.videoCard:nth-child(7){left:21.830%!important;top:52.497%!important;width:7.656%!important;height:12.221%!important;}
+.videoCard:nth-child(8){left:80.443%!important;top:14.878%!important;width:8.373%!important;height:11.265%!important;}
+.videoCard:nth-child(9){left:74.282%!important;top:28.587%!important;width:6.579%!important;height:10.202%!important;}
+.videoCard:nth-child(10){left:80.981%!important;top:28.587%!important;width:8.313%!important;height:11.158%!important;}
+.videoCard:nth-child(11){left:74.940%!important;top:40.489%!important;width:9.390%!important;height:12.115%!important;}
+.videoCard:nth-child(12){left:84.390%!important;top:40.701%!important;width:6.998%!important;height:11.583%!important;}
+.videoCard:nth-child(13){left:31.519%!important;top:57.598%!important;width:7.237%!important;height:11.583%!important;}
+.videoCard:nth-child(14){left:40.431%!important;top:57.386%!important;width:8.433%!important;height:11.796%!important;}
+.videoCard:nth-child(15){left:50.837%!important;top:57.811%!important;width:8.134%!important;height:11.583%!important;}
+.videoCard:nth-child(16){left:60.347%!important;top:56.217%!important;width:7.895%!important;height:12.859%!important;}
+.videoCard:nth-child(17){left:32.536%!important;top:71.838%!important;width:9.928%!important;height:12.646%!important;}
+.videoCard:nth-child(18){left:43.600%!important;top:71.838%!important;width:9.510%!important;height:12.646%!important;}
+.videoCard:nth-child(19){left:55.682%!important;top:71.413%!important;width:9.928%!important;height:12.859%!important;}
+.videoCard:nth-child(20){left:6.998%!important;top:65.887%!important;width:14.354%!important;height:17.960%!important;}
+.videoCard:nth-child(21){left:24.043%!important;top:73.751%!important;width:7.656%!important;height:10.627%!important;}
+.videoCard:nth-child(22){left:71.172%!important;top:64.506%!important;width:15.849%!important;height:19.554%!important;}
+.videoCard:nth-child(23){left:88.756%!important;top:72.370%!important;width:7.476%!important;height:12.009%!important;}
+
+/* Mobile: preserve the artwork as a full installation rather than turning it back into cards. */
+@media(max-width:760px){
+  .gallery{overflow-x:hidden!important}
+  .editorial{
+    width:150%!important;
+    max-width:none!important;
+    margin-left:-25%!important;
+    aspect-ratio:1672/941!important;
+  }
+}
+@media(max-width:480px){
+  .editorial{
+    width:178%!important;
+    margin-left:-39%!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -532,7 +952,7 @@ header .lang{
 
 <script>
 const MAIN_VIDEO={id:"k6vBizqAXBs"};
-const VIDEOS=[{id:"2_ZXLTNgjeg"},{id:"jBWnWCUseyI"},{id:"dg194QhkGE0"},{id:"dwNzAA-G5a8"},{id:"lRFQZs2mR-I"},{id:"Uy6KpYZeERI"},{id:"K1fF0DFRJKw"},{id:"Hg0ZsqPn084"}];
+const VIDEOS=[{id:"2_ZXLTNgjeg"},{id:"jBWnWCUseyI"},{id:"dg194QhkGE0"},{id:"dwNzAA-G5a8"},{id:"lRFQZs2mR-I"},{id:"Uy6KpYZeERI"},{id:"K1fF0DFRJKw"},{id:"Hg0ZsqPn084"},{id:"N1j4gXlzKGI"},{id:"5ZJuAOeQX5Y"},{id:"n7PnboBqSLU"},{id:"KTMHd5qm7xQ"},{id:"EmTxU_-dPEM"},{id:"s2yqp_jMQEE"},{id:"u-5e6fMhKG0"},{id:"kD4U54YbCqU"},{id:"UAwvxZ8qJj4"},{id:"236bi4YaQuM"},{id:"JDozHJlRkuE"},{id:"snr9HhPGt2U"},{id:"1UTqafvnSNg"},{id:"CiFPVqZIUdg"},{id:"-HYjB1YNuDI"}];
 const I18N={
 en:{"nav.home":"HOME","nav.visual":"VISUAL","nav.shows":"SHOWS","nav.about":"ABOUT","hero.sub":"MUSIC · VISUAL · ARTISTS · CULTURE","hero.enter":"ENTER THE VISUAL EXPERIENCE ↓","now.title":"WATCH\nTHE SOUND.","selected.title":"MOVING\nIMAGES.","visual.copy":"Music becomes movement, light and space. Enter the TIKOONZ Visual Studio and experience the sound in real time.","visual.enter":"ENTER VISUAL STUDIO ↗"},
 ko:{"nav.home":"홈","nav.visual":"비주얼","nav.shows":"쇼","nav.about":"소개","hero.sub":"음악 · 비주얼 · 아티스트 · 컬처","hero.enter":"비주얼 경험 시작 ↓","now.title":"소리를\n보다.","selected.title":"움직이는\n이미지.","visual.copy":"음악이 움직임과 빛, 공간으로 확장됩니다. TIKOONZ Visual Studio에서 사운드를 실시간 비주얼로 경험하세요.","visual.enter":"VISUAL STUDIO 입장 ↗"},
@@ -581,7 +1001,7 @@ VIDEOS.forEach((v,i)=>{
   });
 });
 
-const PLAYLIST=["k6vBizqAXBs", "2_ZXLTNgjeg", "jBWnWCUseyI", "dg194QhkGE0", "dwNzAA-G5a8", "lRFQZs2mR-I", "Uy6KpYZeERI", "K1fF0DFRJKw", "Hg0ZsqPn084"];
+const PLAYLIST=["k6vBizqAXBs","2_ZXLTNgjeg","jBWnWCUseyI","dg194QhkGE0","dwNzAA-G5a8","lRFQZs2mR-I","Uy6KpYZeERI","K1fF0DFRJKw","Hg0ZsqPn084","N1j4gXlzKGI","5ZJuAOeQX5Y","n7PnboBqSLU","KTMHd5qm7xQ","EmTxU_-dPEM","s2yqp_jMQEE","u-5e6fMhKG0","kD4U54YbCqU","UAwvxZ8qJj4","236bi4YaQuM","JDozHJlRkuE","snr9HhPGt2U","1UTqafvnSNg","CiFPVqZIUdg","-HYjB1YNuDI"];
 let currentIndex=0, heroPlayer=null;
 const heroSound=document.getElementById("heroSound");
 
@@ -613,8 +1033,14 @@ heroSound.onclick=()=>{if(heroPlayer){heroPlayer.unMute();heroPlayer.setVolume(1
 // Selecting a thumbnail starts that video; playback then continues through the queue.
 grid.addEventListener("click",e=>{
   const card=e.target.closest(".videoCard");
-  if(!card) return;
-  loadHero(Number(card.dataset.index),true);
+  if(!card || !heroPlayer) return;
+  const id=card.dataset.video;
+  const idx=PLAYLIST.indexOf(id);
+  currentIndex=idx>=0?idx:0;
+  heroPlayer.loadVideoById({videoId:id,suggestedQuality:"hd1080"});
+  heroPlayer.unMute();
+  heroPlayer.setVolume(100);
+  heroSound.style.display="none";
   document.querySelector(".cinema").scrollIntoView({behavior:"smooth",block:"start"});
 });
 

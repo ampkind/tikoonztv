@@ -47,3 +47,12 @@ V32
 - Removed the TV-card treatment and duplicate/modal structure from ABOUT.
 - ABOUT now has one clean large 16:9 autoplay film followed by editorial identity text.
 - HOME / VISUAL / SHOWS remain unchanged from V31.
+
+V33
+- Explicitly verified/fixed autoplay on the top featured players of HOME, VISUAL, SHOWS and ABOUT.
+- All start muted to satisfy browser autoplay rules; viewers can enable sound with YouTube controls.
+
+V34 CHANNEL PLAYER
+HOME / VISUAL / SHOWS: featured + lower videos are one looping sequence.
+Clicking any lower TV moves that video into the top player and the sequence continues from there.
+Desktop hover previews remain. ABOUT loops its single featured film.

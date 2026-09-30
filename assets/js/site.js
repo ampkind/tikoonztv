@@ -56,3 +56,20 @@ document.addEventListener("DOMContentLoaded",()=>{
  p?.addEventListener("click",e=>{if(e.target===p)close()});
  document.addEventListener("keydown",e=>{if(e.key==="Escape")close()});
 });
+
+/* V34 unified channel player */
+document.addEventListener("DOMContentLoaded",()=>{
+ const main=document.getElementById("mainPlayer");
+ const ids=(document.body.dataset.playlist||"").split(",").filter(Boolean);
+ if(!main||!ids.length)return;
+ document.querySelectorAll(".tv[data-id]").forEach(tv=>{
+   tv.addEventListener("click",(e)=>{
+     e.preventDefault(); e.stopImmediatePropagation();
+     const id=tv.dataset.id, i=ids.indexOf(id);
+     if(i<0)return;
+     const order=ids.slice(i).concat(ids.slice(0,i));
+     main.src=`https://www.youtube.com/embed/${id}?autoplay=1&mute=0&controls=1&rel=0&playsinline=1&loop=1&playlist=${order.join(",")}`;
+     main.scrollIntoView({behavior:"smooth",block:"center"});
+   },true);
+ });
+});

@@ -15,9 +15,9 @@
 :root{--bg:#050505;--fg:#f5f5f2;--muted:#8c8c8a;--line:rgba(255,255,255,.14);--max:1500px}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--fg);font-family:Arial,Helvetica,sans-serif}
 a{color:inherit;text-decoration:none}button{font:inherit}.shell{width:min(var(--max),calc(100% - 64px));margin:auto}
-header{position:sticky;top:0;z-index:100;background:rgba(5,5,5,.82);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
-.nav{height:86px;display:flex;align-items:center;gap:42px}.brand{margin-right:auto;display:flex;align-items:center}.brand img{display:block;width:auto;height:48px;max-width:220px;object-fit:contain}
-.links{display:flex;gap:28px;font-size:12px;letter-spacing:.13em}.links a{opacity:.65}.links a:hover,.links a.active{opacity:1}
+header{position:relative;z-index:100;background:#050505}
+.nav{min-height:132px;display:flex;align-items:center;gap:46px;padding:24px 0}.brand{margin-right:auto;display:flex;align-items:center}.brand img{display:block;width:auto;height:82px;max-width:340px;object-fit:contain}
+.links{display:flex;gap:32px;font-size:13px;font-weight:600;letter-spacing:.11em}.links a{opacity:.65}.links a:hover,.links a.active{opacity:1}
 .lang{position:relative}.langCurrent{border:0;background:none;color:#fff;cursor:pointer;font-size:12px;letter-spacing:.12em;padding:12px 0}
 .langMenu{display:none;position:absolute;right:0;top:38px;min-width:92px;background:#0b0b0b;border:1px solid var(--line);padding:8px}
 .lang.open .langMenu{display:block}.langMenu button{display:block;width:100%;text-align:left;border:0;background:none;color:#aaa;padding:9px 10px;cursor:pointer}.langMenu button:hover{color:#fff;background:#151515}
@@ -41,6 +41,37 @@ footer{padding:46px 0 70px}.foot{display:flex;justify-content:space-between;gap:
 .overlay{position:fixed;inset:0;z-index:1000;background:#000;display:none}.overlay.open{display:block}.overlay iframe{width:100%;height:100%;border:0}.closeVisual{position:absolute;top:18px;right:18px;z-index:2;background:rgba(0,0,0,.8);color:#fff;border:1px solid rgba(255,255,255,.25);padding:11px 14px;cursor:pointer;letter-spacing:.12em;font-size:11px}
 @media(max-width:800px){.shell{width:calc(100% - 32px)}.nav{height:72px;gap:18px}.links{gap:14px;font-size:10px}.hero{min-height:78svh}.heroCopy{left:18px;bottom:7vh}.hero h1{font-size:clamp(54px,18vw,96px)}.section{padding:78px 0}.editorial{display:grid;grid-template-columns:1fr 1fr;gap:28px 12px}.videoCard:nth-child(n){grid-column:auto;margin-top:0}.videoCard:nth-child(1),.videoCard:nth-child(4){grid-column:1/3}.visualGrid{grid-template-columns:1fr;gap:40px}.foot{display:block}.foot div:last-child{margin-top:20px}.foot a{margin:0 18px 0 0}}
 @media(max-width:520px){.links a:nth-child(2){display:none}.links{gap:11px}.brand img{height:38px;max-width:175px}.heroVisual{opacity:1}.editorial{grid-template-columns:1fr}.videoCard:nth-child(n){grid-column:1}.sectionHead{display:block}.sectionHead .number{margin-bottom:14px}}
+
+.cinema{background:#000;padding:0 0 84px}
+.cinemaInner{position:relative;width:min(1600px,calc(100% - 48px));margin:0 auto;aspect-ratio:16/9;background:#000;overflow:hidden}
+#heroPlayer{position:absolute;inset:0;width:100%;height:100%}
+.heroSound{position:absolute;right:20px;bottom:20px;z-index:4;background:rgba(0,0,0,.72);color:#fff;border:1px solid rgba(255,255,255,.28);padding:13px 16px;letter-spacing:.12em;font-size:11px;cursor:pointer;display:none}
+.intro{padding:72px 0 110px;border-bottom:1px solid var(--line)}
+.introGrid{display:grid;grid-template-columns:170px 1fr;gap:40px;align-items:start}
+.intro h1{font-size:clamp(64px,10vw,150px);line-height:.79;letter-spacing:-.075em;margin:0;font-weight:900}
+.intro h1 span{font-weight:300;color:#aaa}
+.introMeta{padding-top:12px;font-size:11px;letter-spacing:.18em;color:#777}
+.introSub{margin-top:32px;font-size:13px;letter-spacing:.13em;color:#aaa}
+@media(max-width:800px){
+ .nav{min-height:98px;padding:14px 0;gap:16px;flex-wrap:wrap}
+ .brand img{height:60px;max-width:240px}
+ .links{order:3;width:100%;justify-content:center;gap:20px;font-size:11px}
+ .lang{margin-left:auto}
+ .cinema{padding-bottom:54px}
+ .cinemaInner{width:calc(100% - 20px)}
+ .intro{padding:52px 0 76px}
+ .introGrid{grid-template-columns:1fr;gap:18px}
+ .intro h1{font-size:clamp(58px,17vw,100px)}
+}
+@media(max-width:520px){
+ .nav{min-height:92px}
+ .brand img{height:52px;max-width:205px}
+ .links{gap:14px;font-size:10px}
+ .cinemaInner{width:100%}
+ .heroSound{right:10px;bottom:10px;padding:10px 12px}
+ .intro h1{font-size:17vw}
+}
+
 </style>
 </head>
 <body>
@@ -50,15 +81,16 @@ footer{padding:46px 0 70px}.foot{display:flex;justify-content:space-between;gap:
 <div class="lang" id="lang"><button class="langCurrent" id="langCurrent">EN ▾</button><div class="langMenu"><button data-lang="en">EN</button><button data-lang="ko">KO</button><button data-lang="ja">JA</button><button data-lang="zh">中文</button></div></div>
 </div></header>
 
-<section class="hero">
-<div class="heroVisual" aria-hidden="true"></div>
-<div class="heroShade"></div>
-<div class="heroCopy"><div class="eyebrow">TIKOONZ TV · VISUAL MUSIC CHANNEL</div><h1>MUSIC<br><i>IN MOTION.</i></h1><div class="heroSub" data-i18n="hero.sub">MUSIC · VISUAL · ARTISTS · CULTURE</div><a class="enter" href="#visual" data-i18n="hero.enter">ENTER THE VISUAL EXPERIENCE ↓</a></div>
+<section class="cinema">
+  <div class="cinemaInner">
+    <div id="heroPlayer"></div>
+    <button class="heroSound" id="heroSound">SOUND ON</button>
+  </div>
 </section>
 
-<section class="section"><div class="shell">
-<div class="sectionHead"><div><div class="number">01 / NOW PLAYING</div><h2 class="sectionTitle" data-i18n="now.title">WATCH<br>THE SOUND.</h2></div><div class="number">TIKOONZ.TV / 2026</div></div>
-<div class="playerWrap"><div id="player"></div><button class="soundBtn" id="soundBtn">SOUND ON</button></div>
+<section class="intro"><div class="shell introGrid">
+<div class="introMeta">01 / NOW PLAYING<br><br>TIKOONZ.TV / 2026</div>
+<div><h1>MUSIC<br><span>IN MOTION.</span></h1><div class="introSub" data-i18n="hero.sub">MUSIC · VISUAL · ARTISTS · CULTURE</div></div>
 </div></section>
 
 <section class="section"><div class="shell">
@@ -90,9 +122,43 @@ current.onclick=()=>langBox.classList.toggle("open");document.querySelectorAll("
 let preferred=localStorage.getItem(key);if(!preferred){let n=(navigator.language||"en").toLowerCase();preferred=n.startsWith("ko")?"ko":n.startsWith("ja")?"ja":n.startsWith("zh")?"zh":"en"}applyLang(preferred);
 
 const grid=document.getElementById("grid");VIDEOS.forEach((v,i)=>{let a=document.createElement("article");a.className="videoCard";a.innerHTML=`<img src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg" alt="TIKOONZ TV video ${i+1}"><div class="meta"><b>TIKOONZ.TV</b><span>${String(i+1).padStart(2,"0")}</span></div>`;a.onclick=()=>{player.loadVideoById(v.id);document.querySelector(".playerWrap").scrollIntoView({behavior:"smooth",block:"center"})};grid.appendChild(a)});
-let player;const soundBtn=document.getElementById("soundBtn");
-function onYouTubeIframeAPIReady(){player=new YT.Player("player",{videoId:MAIN_VIDEO.id,playerVars:{autoplay:1,mute:1,playsinline:1,rel:0,modestbranding:1,origin:"https://www.tikoonz.tv"},events:{onReady:e=>{e.target.playVideo();soundBtn.style.display="block"}}})}window.onYouTubeIframeAPIReady=onYouTubeIframeAPIReady;
-let yt=document.createElement("script");yt.src="https://www.youtube.com/iframe_api";document.head.appendChild(yt);soundBtn.onclick=()=>{if(player){player.unMute();player.setVolume(100);player.playVideo();soundBtn.style.display="none"}};
+
+const PLAYLIST=["k6vBizqAXBs", "2_ZXLTNgjeg", "jBWnWCUseyI", "dg194QhkGE0", "dwNzAA-G5a8", "lRFQZs2mR-I", "Uy6KpYZeERI", "K1fF0DFRJKw", "Hg0ZsqPn084"];
+let currentIndex=0, heroPlayer=null;
+const heroSound=document.getElementById("heroSound");
+
+function loadHero(index, autoplay=true){
+  currentIndex=(index+PLAYLIST.length)%PLAYLIST.length;
+  if(heroPlayer){
+    heroPlayer.loadVideoById({videoId:PLAYLIST[currentIndex],suggestedQuality:"hd1080"});
+    if(!autoplay) heroPlayer.pauseVideo();
+  }
+}
+function nextHero(){
+  currentIndex=(currentIndex+1)%PLAYLIST.length;
+  loadHero(currentIndex,true);
+}
+function onYouTubeIframeAPIReady(){
+  heroPlayer=new YT.Player("heroPlayer",{
+    videoId:PLAYLIST[0],
+    playerVars:{autoplay:1,mute:1,playsinline:1,rel:0,modestbranding:1,origin:"https://www.tikoonz.tv"},
+    events:{
+      onReady:e=>{e.target.playVideo();heroSound.style.display="block";},
+      onStateChange:e=>{if(e.data===YT.PlayerState.ENDED)nextHero();}
+    }
+  });
+}
+window.onYouTubeIframeAPIReady=onYouTubeIframeAPIReady;
+let yt=document.createElement("script");yt.src="https://www.youtube.com/iframe_api";document.head.appendChild(yt);
+heroSound.onclick=()=>{if(heroPlayer){heroPlayer.unMute();heroPlayer.setVolume(100);heroPlayer.playVideo();heroSound.style.display="none";}};
+
+// Selecting a thumbnail starts that video; playback then continues through the queue.
+document.querySelectorAll(".videoCard").forEach((card,i)=>{
+  card.onclick=()=>{
+    loadHero(i+1,true);
+    document.querySelector(".cinema").scrollIntoView({behavior:"smooth",block:"start"});
+  };
+});
 
 const overlay=document.getElementById("visualOverlay"),frame=document.getElementById("visualFrame");
 document.getElementById("openVisual").onclick=()=>{frame.src="https://www.tikoonz.com/visual-studio.html";overlay.classList.add("open");document.body.style.overflow="hidden"};

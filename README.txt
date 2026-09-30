@@ -29,3 +29,9 @@ V29
 - SHOWS featured video autoplays muted (browser autoplay requirement); viewer can enable sound in YouTube controls.
 - SHOWS lower TV items retain hover moving previews and click-to-open playback.
 - HOME large featured video and ABOUT feature remain.
+
+V30
+- Added a large VISUAL featured screen above the VISUAL gallery.
+- Featured VISUAL video: 2_ZXLTNgjeg.
+- HOME / VISUAL / SHOWS now all have a large top video screen.
+- Existing hover previews, click playback, high-resolution thumbnails, language persistence, and ABOUT feature remain.

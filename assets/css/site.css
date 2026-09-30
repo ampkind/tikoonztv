@@ -102,3 +102,6 @@ footer{padding:70px 24px;text-align:center;color:#555;font-size:10px;letter-spac
 .showsFeature{padding-top:48px}
 .soundHint{margin:12px 0 0;color:#555;font-size:9px;letter-spacing:.18em;text-align:right}
 @media(max-width:760px){.soundHint{text-align:left;line-height:1.5}}
+
+/* v30 VISUAL featured screen uses the same HOME/SHOWS mainScreen system */
+.visualFeature{padding-top:48px}

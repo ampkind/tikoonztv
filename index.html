@@ -172,6 +172,55 @@ header{position:relative;background:#050505}
   }
 }
 
+
+/* v5: navigation + language centered as one balanced row */
+.nav{
+  grid-template-columns:1fr;
+  grid-template-areas:
+    "brand"
+    "navrow";
+  justify-items:center;
+}
+.links{
+  grid-area:navrow;
+  justify-self:center;
+}
+.lang{
+  grid-area:navrow;
+  justify-self:start;
+  margin-left:430px;
+  align-self:center;
+}
+@media(max-width:800px){
+  .nav{
+    grid-template-columns:1fr;
+    grid-template-areas:
+      "brand"
+      "navrow";
+  }
+  .links{
+    grid-area:navrow;
+    justify-self:center;
+    width:auto;
+  }
+  .lang{
+    grid-area:navrow;
+    justify-self:start;
+    margin-left:330px;
+  }
+}
+@media(max-width:520px){
+  .links{gap:13px}
+  .lang{
+    margin-left:292px;
+  }
+  .langBtn{
+    font-size:9px;
+    padding:5px 5px;
+    min-width:34px;
+  }
+}
+
 </style>
 </head>
 <body>

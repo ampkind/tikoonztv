@@ -105,3 +105,7 @@ footer{padding:70px 24px;text-align:center;color:#555;font-size:10px;letter-spac
 
 /* v30 VISUAL featured screen uses the same HOME/SHOWS mainScreen system */
 .visualFeature{padding-top:48px}
+
+/* v31 — every page's top featured video autoplays muted */
+.aboutAutoPlayer{cursor:default}
+.aboutAutoPlayer .screen iframe{width:100%;height:100%;border:0;display:block}

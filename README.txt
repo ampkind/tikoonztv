@@ -35,3 +35,9 @@ V30
 - Featured VISUAL video: 2_ZXLTNgjeg.
 - HOME / VISUAL / SHOWS now all have a large top video screen.
 - Existing hover previews, click playback, high-resolution thumbnails, language persistence, and ABOUT feature remain.
+
+V31
+- HOME, VISUAL, SHOWS and ABOUT top featured videos all autoplay.
+- Autoplay begins muted because modern browsers generally block autoplay with sound.
+- YouTube controls remain visible so the viewer can turn sound on immediately.
+- Lower gallery hover previews and click-to-open playback remain unchanged.

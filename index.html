@@ -994,39 +994,40 @@ header .lang{
 }
 
 
-/* v19 — measured directly from the approved robot artwork.
-   IMPORTANT: no hover scaling; scaling was making screens escape the CRT bezel. */
+/* ==========================================================
+   v20 — ROBOT SCULPTURE FIRST
+   Only seven selected CRTs are live. The rest stay as part of
+   the 3D artwork so the two robot silhouettes remain readable.
+   No film dots, no perforations, no hover enlargement.
+   ========================================================== */
 .videoCard{
   transform:none!important;
-  clip-path:inset(0 round 1.5%)!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  background:#000!important;
+  overflow:hidden!important;
 }
 .videoCard:hover{
   transform:none!important;
-  filter:brightness(1.08)!important;
+  filter:brightness(1.07)!important;
+  z-index:30!important;
 }
-.videoCard:nth-child(1){left:35.40670%!important;top:23.91073%!important;width:29.72488%!important;height:25.29224%!important;}
-.videoCard:nth-child(2){left:16.44737%!important;top:16.36557%!important;width:8.49282%!important;height:9.24548%!important;}
-.videoCard:nth-child(3){left:14.47368%!important;top:28.26780%!important;width:9.50957%!important;height:8.92667%!important;}
-.videoCard:nth-child(4){left:14.59330%!important;top:39.42614%!important;width:8.67225%!important;height:9.03294%!important;}
-.videoCard:nth-child(5){left:7.23684%!important;top:54.62274%!important;width:12.02153%!important;height:10.83953%!important;}
-.videoCard:nth-child(6){left:19.85646%!important;top:54.62274%!important;width:6.51914%!important;height:10.94580%!important;}
-.videoCard:nth-child(7){left:7.35646%!important;top:69.39426%!important;width:13.09809%!important;height:12.85866%!important;}
-.videoCard:nth-child(8){left:21.17225%!important;top:69.60680%!important;width:6.99761%!important;height:12.53985%!important;}
-.videoCard:nth-child(9){left:28.64833%!important;top:57.81084%!important;width:9.38995%!important;height:10.09564%!important;}
-.videoCard:nth-child(10){left:40.13158%!important;top:57.70457%!important;width:7.71531%!important;height:10.41445%!important;}
-.videoCard:nth-child(11){left:51.31579%!important;top:58.23592%!important;width:7.89474%!important;height:9.88310%!important;}
-.videoCard:nth-child(12){left:61.84211%!important;top:57.81084%!important;width:7.41627%!important;height:10.41445%!important;}
-.videoCard:nth-child(13){left:33.79187%!important;top:71.51966%!important;width:6.87799%!important;height:10.94580%!important;}
-.videoCard:nth-child(14){left:42.04545%!important;top:70.24442%!important;width:7.95455%!important;height:12.53985%!important;}
-.videoCard:nth-child(15){left:52.57177%!important;top:70.98831%!important;width:7.65550%!important;height:11.58342%!important;}
-.videoCard:nth-child(16){left:62.50000%!important;top:72.26355%!important;width:6.69856%!important;height:10.09564%!important;}
-.videoCard:nth-child(17){left:78.94737%!important;top:15.83422%!important;width:8.25359%!important;height:9.77683%!important;}
-.videoCard:nth-child(18){left:74.58134%!important;top:30.07439%!important;width:6.27990%!important;height:9.45802%!important;}
-.videoCard:nth-child(19){left:81.57895%!important;top:29.96812%!important;width:7.29665%!important;height:9.56429%!important;}
-.videoCard:nth-child(20){left:74.88038%!important;top:41.76408%!important;width:6.22010%!important;height:10.20191%!important;}
-.videoCard:nth-child(21){left:81.81818%!important;top:41.76408%!important;width:6.93780%!important;height:10.52072%!important;}
-.videoCard:nth-child(22){left:75.29904%!important;top:69.81934%!important;width:12.26077%!important;height:12.75239%!important;}
-.videoCard:nth-child(23){left:89.77273%!important;top:72.47609%!important;width:6.27990%!important;height:10.41445%!important;}
+.videoMedia,.videoMedia img,.videoPreview{
+  border:0!important;
+  border-radius:0!important;
+}
+.videoMedia::before,.videoMedia::after,
+.videoCard::before,.videoCard::after,
+.videoCard .meta,.videoHint{display:none!important;}
+.videoCard:nth-child(n){display:none!important;}
+.videoCard:nth-child(1){display:block!important;left:35.22727%!important;top:23.16684%!important;width:30.14354%!important;height:26.56748%!important;clip-path:polygon(1% 1%,99% 1%,98.5% 99%,1.5% 99%)!important;}
+.videoCard:nth-child(2){display:block!important;left:16.50718%!important;top:16.15303%!important;width:8.43301%!important;height:9.35175%!important;clip-path:polygon(3% 2%,98% 4%,97% 97%,2% 94%)!important;}
+.videoCard:nth-child(6){display:block!important;left:7.23684%!important;top:54.51647%!important;width:12.20096%!important;height:11.05207%!important;clip-path:polygon(2% 2%,98% 3%,98% 97%,2% 96%)!important;}
+.videoCard:nth-child(8){display:block!important;left:7.35646%!important;top:69.28799%!important;width:13.21770%!important;height:13.17747%!important;clip-path:polygon(2% 2%,98% 2%,98% 97%,2% 97%)!important;}
+.videoCard:nth-child(18){display:block!important;left:78.88756%!important;top:15.83422%!important;width:8.25359%!important;height:9.77683%!important;clip-path:polygon(3% 3%,97% 2%,98% 96%,2% 97%)!important;}
+.videoCard:nth-child(22){display:block!important;left:75.05981%!important;top:69.50053%!important;width:12.55981%!important;height:13.49628%!important;clip-path:polygon(2% 2%,98% 2%,98% 97%,2% 97%)!important;}
+.videoCard:nth-child(23){display:block!important;left:89.71292%!important;top:72.36982%!important;width:6.33971%!important;height:10.73326%!important;clip-path:polygon(3% 3%,97% 2%,98% 97%,2% 98%)!important;}
 </style>
 </head>
 <body>

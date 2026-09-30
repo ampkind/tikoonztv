@@ -166,3 +166,25 @@ footer{padding:70px 24px;text-align:center;color:#555;font-size:10px;letter-spac
 
 /* V34 lower TVs feed the top player; old popup disabled */
 .player{display:none!important}
+
+/* V35 clean channel-player interaction */
+.tv[data-id]{cursor:pointer}
+.tv .screen iframe.hoverPreview{
+  position:absolute;inset:0;width:100%;height:100%;border:0;z-index:4;pointer-events:none;
+}
+
+/* V36 desktop + mobile tap behavior */
+.tv[data-id]{
+  cursor:pointer;
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:rgba(255,255,255,.08);
+  user-select:none;
+  -webkit-user-select:none;
+}
+.tv[data-id] img{
+  pointer-events:none;
+  -webkit-user-drag:none;
+}
+@media(hover:none){
+  .tv .hoverPreview{display:none!important}
+}

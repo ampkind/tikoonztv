@@ -56,3 +56,19 @@ V34 CHANNEL PLAYER
 HOME / VISUAL / SHOWS: featured + lower videos are one looping sequence.
 Clicking any lower TV moves that video into the top player and the sequence continues from there.
 Desktop hover previews remain. ABOUT loops its single featured film.
+
+V35 PLAYER FIX
+- site.js rebuilt cleanly instead of stacking old click handlers.
+- Lower TV click now directly replaces the top mainPlayer.
+- Selected video autoplays muted, then playlist continues from that video and wraps around.
+- Smooth scroll moves the selected video into view at the top player.
+- Hover preview remains and no longer captures mouse clicks.
+- Old modal markup removed from HOME / VISUAL / SHOWS.
+
+V36 MOBILE CLICK FIX
+- Added cache-independent inline click handling to HOME / VISUAL / SHOWS.
+- Desktop click and phone tap both replace the top main player.
+- Cards are not external YouTube links.
+- Images cannot intercept taps.
+- Mobile hover preview is disabled; desktop hover preview remains.
+- Selected video autoplays muted in the top player and the page playlist continues from it.

@@ -238,6 +238,31 @@ header{position:relative;background:#050505}
  .langBtn{font-size:9px;padding:5px 7px;min-width:36px}
 }
 
+
+/* v8: language aligned with the navigation row */
+.nav{position:relative}
+.lang{
+  position:absolute !important;
+  top:auto !important;
+  bottom:24px !important;
+  right:22px !important;
+  margin:0 !important;
+}
+@media(max-width:800px){
+  .lang{
+    top:auto !important;
+    bottom:19px !important;
+    right:8px !important;
+  }
+}
+@media(max-width:520px){
+  .lang{
+    top:auto !important;
+    bottom:19px !important;
+    right:2px !important;
+  }
+}
+
 </style>
 </head>
 <body>

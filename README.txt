@@ -41,3 +41,9 @@ V31
 - Autoplay begins muted because modern browsers generally block autoplay with sound.
 - YouTube controls remain visible so the viewer can turn sound on immediately.
 - Lower gallery hover previews and click-to-open playback remain unchanged.
+
+V32
+- ABOUT rebuilt from scratch.
+- Removed the TV-card treatment and duplicate/modal structure from ABOUT.
+- ABOUT now has one clean large 16:9 autoplay film followed by editorial identity text.
+- HOME / VISUAL / SHOWS remain unchanged from V31.

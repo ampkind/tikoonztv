@@ -109,3 +109,57 @@ footer{padding:70px 24px;text-align:center;color:#555;font-size:10px;letter-spac
 /* v31 — every page's top featured video autoplays muted */
 .aboutAutoPlayer{cursor:default}
 .aboutAutoPlayer .screen iframe{width:100%;height:100%;border:0;display:block}
+
+/* v32 ABOUT — clean editorial rebuild */
+.aboutPage{background:#000}
+.aboutIntro{
+  width:min(1500px,calc(100% - 48px));
+  margin:0 auto;
+  padding:74px 0 38px;
+}
+.aboutHeroFilm{
+  width:min(1500px,calc(100% - 48px));
+  margin:0 auto;
+  padding:0 0 76px;
+}
+.aboutHeroFrame{
+  position:relative;
+  width:100%;
+  aspect-ratio:16/9;
+  background:#050505;
+  border:1px solid #242424;
+  box-shadow:0 30px 80px rgba(0,0,0,.75);
+  overflow:hidden;
+}
+.aboutHeroFrame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+.aboutEditorial{
+  width:min(1500px,calc(100% - 48px));
+  margin:0 auto;
+  padding:68px 0 130px;
+  border-top:1px solid #1b1b1b;
+  display:grid;
+  grid-template-columns:minmax(0,1.05fr) minmax(300px,.95fr);
+  gap:10vw;
+  align-items:start;
+}
+.aboutStatement{
+  font-size:clamp(52px,7vw,116px);
+  line-height:.86;
+  letter-spacing:-.065em;
+  font-weight:900;
+}
+.aboutCopy{padding-top:5px}
+.aboutCopy p{
+  margin:0 0 26px;
+  max-width:680px;
+  color:#929292;
+  font-size:14px;
+  line-height:1.9;
+}
+@media(max-width:760px){
+ .aboutIntro,.aboutHeroFilm,.aboutEditorial{width:calc(100% - 28px)}
+ .aboutIntro{padding:50px 0 28px}
+ .aboutHeroFilm{padding-bottom:48px}
+ .aboutEditorial{grid-template-columns:1fr;gap:44px;padding:48px 0 90px}
+ .aboutStatement{font-size:clamp(48px,16vw,76px)}
+}

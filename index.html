@@ -312,6 +312,109 @@ header .lang{
   }
 }
 
+
+/* v11 — museum-frame video gallery */
+.editorial{gap:72px 34px}
+.videoCard{
+  position:relative;
+  cursor:pointer;
+  padding:10px;
+  background:#080808;
+  border:1px solid rgba(255,255,255,.24);
+  box-shadow:
+    0 0 0 5px #050505,
+    0 0 0 6px rgba(255,255,255,.10),
+    0 22px 60px rgba(0,0,0,.48);
+  transition:transform .45s cubic-bezier(.2,.7,.2,1),border-color .45s ease,box-shadow .45s ease;
+}
+.videoCard::before,.videoCard::after{
+  content:"";
+  position:absolute;
+  width:18px;height:18px;
+  pointer-events:none;
+  z-index:5;
+}
+.videoCard::before{
+  left:-7px;top:-7px;
+  border-left:1px solid rgba(255,255,255,.72);
+  border-top:1px solid rgba(255,255,255,.72);
+}
+.videoCard::after{
+  right:-7px;bottom:-7px;
+  border-right:1px solid rgba(255,255,255,.72);
+  border-bottom:1px solid rgba(255,255,255,.72);
+}
+.videoMedia{
+  position:relative;
+  aspect-ratio:16/9;
+  overflow:hidden;
+  background:#000;
+}
+.videoMedia img{
+  width:100%;height:100%;
+  object-fit:cover;
+  display:block;
+  filter:saturate(.88) contrast(1.03);
+  transition:transform .7s cubic-bezier(.2,.7,.2,1),filter .5s ease,opacity .3s ease;
+}
+.videoPreview{
+  position:absolute;
+  inset:0;
+  width:100%;height:100%;
+  border:0;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .28s ease;
+  background:#000;
+}
+.videoCard.previewing .videoPreview{opacity:1}
+.videoCard.previewing .videoMedia img{opacity:0}
+.videoCard:hover{
+  transform:translateY(-8px);
+  border-color:rgba(255,255,255,.55);
+  box-shadow:
+    0 0 0 5px #050505,
+    0 0 0 6px rgba(255,255,255,.22),
+    0 34px 85px rgba(0,0,0,.72);
+}
+.videoCard:hover .videoMedia img{transform:scale(1.025);filter:saturate(1.08) contrast(1.06)}
+.videoCard .meta{
+  padding:15px 3px 4px;
+  border-top:1px solid rgba(255,255,255,.08);
+  margin-top:10px;
+  font-size:10px;
+  letter-spacing:.17em;
+}
+.videoCard .meta b{font-weight:600}
+.videoCard .meta span{color:#777}
+.videoHint{
+  position:absolute;
+  left:18px;bottom:18px;
+  z-index:4;
+  padding:7px 9px;
+  background:rgba(0,0,0,.58);
+  border:1px solid rgba(255,255,255,.22);
+  font-size:9px;
+  letter-spacing:.15em;
+  color:#ddd;
+  opacity:0;
+  transition:opacity .3s ease;
+  pointer-events:none;
+}
+.videoCard:hover .videoHint{opacity:1}
+.videoCard.previewing .videoHint{opacity:0}
+
+@media(max-width:800px){
+  .editorial{gap:48px 16px}
+  .videoCard{padding:7px}
+  .videoCard:hover{transform:none}
+  .videoHint{display:none}
+}
+@media(hover:none){
+  .videoPreview{display:none}
+  .videoCard:hover{transform:none}
+}
+
 </style>
 </head>
 <body>
@@ -361,7 +464,42 @@ function applyLang(l){if(!I18N[l])l="en";document.querySelectorAll("[data-i18n]"
 current.onclick=()=>langBox.classList.toggle("open");document.querySelectorAll("[data-lang]").forEach(b=>b.onclick=()=>{applyLang(b.dataset.lang);langBox.classList.remove("open")});document.addEventListener("click",e=>{if(!langBox.contains(e.target))langBox.classList.remove("open")});
 let preferred=localStorage.getItem(key);if(!preferred){let n=(navigator.language||"en").toLowerCase();preferred=n.startsWith("ko")?"ko":n.startsWith("ja")?"ja":n.startsWith("zh")?"zh":"en"}applyLang(preferred);
 
-const grid=document.getElementById("grid");VIDEOS.forEach((v,i)=>{let a=document.createElement("article");a.className="videoCard";a.innerHTML=`<img src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg" alt="TIKOONZ TV video ${i+1}"><div class="meta"><b>TIKOONZ.TV</b><span>${String(i+1).padStart(2,"0")}</span></div>`;a.onclick=()=>{player.loadVideoById(v.id);document.querySelector(".playerWrap").scrollIntoView({behavior:"smooth",block:"center"})};grid.appendChild(a)});
+const grid=document.getElementById("grid");
+VIDEOS.forEach((v,i)=>{
+  const a=document.createElement("article");
+  a.className="videoCard";
+  a.dataset.index=i+1;
+  a.dataset.video=v.id;
+  a.innerHTML=`
+    <div class="videoMedia">
+      <img src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg" alt="TIKOONZ TV video ${i+1}">
+      <span class="videoHint">HOVER / PREVIEW</span>
+    </div>
+    <div class="meta"><b>TIKOONZ.TV</b><span>${String(i+1).padStart(2,"0")}</span></div>`;
+  grid.appendChild(a);
+
+  let previewTimer=null;
+  a.addEventListener("mouseenter",()=>{
+    if(!window.matchMedia("(hover:hover)").matches) return;
+    previewTimer=setTimeout(()=>{
+      if(a.querySelector(".videoPreview")) return;
+      const frame=document.createElement("iframe");
+      frame.className="videoPreview";
+      frame.title=`TIKOONZ preview ${i+1}`;
+      frame.allow="autoplay; encrypted-media";
+      frame.referrerPolicy="strict-origin-when-cross-origin";
+      frame.src=`https://www.youtube.com/embed/${v.id}?autoplay=1&mute=1&controls=0&playsinline=1&rel=0&modestbranding=1&loop=1&playlist=${v.id}`;
+      a.querySelector(".videoMedia").appendChild(frame);
+      requestAnimationFrame(()=>a.classList.add("previewing"));
+    },280);
+  });
+  a.addEventListener("mouseleave",()=>{
+    clearTimeout(previewTimer);
+    a.classList.remove("previewing");
+    const frame=a.querySelector(".videoPreview");
+    if(frame) setTimeout(()=>frame.remove(),220);
+  });
+});
 
 const PLAYLIST=["k6vBizqAXBs", "2_ZXLTNgjeg", "jBWnWCUseyI", "dg194QhkGE0", "dwNzAA-G5a8", "lRFQZs2mR-I", "Uy6KpYZeERI", "K1fF0DFRJKw", "Hg0ZsqPn084"];
 let currentIndex=0, heroPlayer=null;
@@ -393,11 +531,11 @@ let yt=document.createElement("script");yt.src="https://www.youtube.com/iframe_a
 heroSound.onclick=()=>{if(heroPlayer){heroPlayer.unMute();heroPlayer.setVolume(100);heroPlayer.playVideo();heroSound.style.display="none";}};
 
 // Selecting a thumbnail starts that video; playback then continues through the queue.
-document.querySelectorAll(".videoCard").forEach((card,i)=>{
-  card.onclick=()=>{
-    loadHero(i+1,true);
-    document.querySelector(".cinema").scrollIntoView({behavior:"smooth",block:"start"});
-  };
+grid.addEventListener("click",e=>{
+  const card=e.target.closest(".videoCard");
+  if(!card) return;
+  loadHero(Number(card.dataset.index),true);
+  document.querySelector(".cinema").scrollIntoView({behavior:"smooth",block:"start"});
 });
 
 const overlay=document.getElementById("visualOverlay"),frame=document.getElementById("visualFrame");

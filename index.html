@@ -1028,6 +1028,67 @@ header .lang{
 .videoCard:nth-child(18){display:block!important;left:78.88756%!important;top:15.83422%!important;width:8.25359%!important;height:9.77683%!important;clip-path:polygon(3% 3%,97% 2%,98% 96%,2% 97%)!important;}
 .videoCard:nth-child(22){display:block!important;left:75.05981%!important;top:69.50053%!important;width:12.55981%!important;height:13.49628%!important;clip-path:polygon(2% 2%,98% 2%,98% 97%,2% 97%)!important;}
 .videoCard:nth-child(23){display:block!important;left:89.71292%!important;top:72.36982%!important;width:6.33971%!important;height:10.73326%!important;clip-path:polygon(3% 3%,97% 2%,98% 97%,2% 98%)!important;}
+
+/* v21 — APPROVED ARTWORK EXACT
+   The approved installation image is never covered by rectangular video overlays.
+   This guarantees that both robot sculptures and every CRT bezel appear exactly as designed. */
+.gallery{background:#000!important;padding:0!important;overflow:hidden!important}
+.gallery .sectionHead{display:none!important}
+.editorial{
+  position:relative!important;
+  display:block!important;
+  width:100%!important;
+  max-width:1672px!important;
+  aspect-ratio:1672/941!important;
+  min-height:0!important;
+  margin:0 auto!important;
+  padding:0!important;
+  background:url("./tikoonz-tv-final-installation.png") center/100% 100% no-repeat!important;
+  overflow:hidden!important;
+}
+.editorial::before,.editorial::after{display:none!important}
+
+/* Remove all former card/video overlays completely. */
+.videoCard{display:none!important}
+
+/* Invisible interaction areas: click a TV to send its assigned video to the top main player. */
+.artHotspot{
+  position:absolute;
+  z-index:20;
+  cursor:pointer;
+  background:transparent;
+  border:0;
+  outline:0;
+}
+.artHotspot::after{
+  content:"";
+  position:absolute;inset:0;
+  border:1px solid transparent;
+  transition:border-color .2s ease,box-shadow .2s ease;
+}
+.artHotspot:hover::after{
+  border-color:rgba(255,255,255,.18);
+  box-shadow:inset 0 0 24px rgba(255,255,255,.05);
+}
+.artHotspot:nth-child(1){left:32.5957%;top:18.9160%;width:33.4928%;height:32.4123%;}
+.artHotspot:nth-child(2){left:15.7895%;top:15.4091%;width:9.5096%;height:11.4772%;}
+.artHotspot:nth-child(3){left:13.6364%;top:28.2678%;width:10.2273%;height:10.7333%;}
+.artHotspot:nth-child(4){left:7.1172%;top:41.4453%;width:10.1675%;height:11.2646%;}
+.artHotspot:nth-child(5){left:4.7847%;top:55.0478%;width:13.4569%;height:13.3900%;}
+.artHotspot:nth-child(6){left:75.8373%;top:15.4091%;width:11.3636%;height:12.2210%;}
+.artHotspot:nth-child(7){left:72.1890%;top:30.9245%;width:8.7919%;height:11.1583%;}
+.artHotspot:nth-child(8){left:81.1603%;top:30.9245%;width:8.7321%;height:11.1583%;}
+.artHotspot:nth-child(9){left:72.6077%;top:43.5707%;width:8.7919%;height:11.4772%;}
+.artHotspot:nth-child(10){left:81.3995%;top:43.3581%;width:8.9713%;height:11.6897%;}
+.artHotspot:nth-child(11){left:73.6842%;top:69.7131%;width:13.7560%;height:14.6652%;}
+
+@media(max-width:760px){
+  .editorial{width:150%!important;max-width:none!important;margin-left:-25%!important}
+}
+@media(max-width:480px){
+  .editorial{width:178%!important;margin-left:-39%!important}
+}
+
 </style>
 </head>
 <body>
@@ -1160,5 +1221,24 @@ grid.addEventListener("click",e=>{
 const overlay=document.getElementById("visualOverlay"),frame=document.getElementById("visualFrame");
 document.getElementById("openVisual").onclick=()=>{frame.src="https://www.tikoonz.com/visual-studio.html";overlay.classList.add("open");document.body.style.overflow="hidden"};
 document.getElementById("closeVisual").onclick=()=>{overlay.classList.remove("open");frame.src="";document.body.style.overflow=""};
+
+const ART_HOTSPOTS = [1,2,3,4,5,6,7,8,9,10,11];
+ART_HOTSPOTS.forEach((playlistIndex,i)=>{
+  const h=document.createElement("button");
+  h.className="artHotspot";
+  h.type="button";
+  h.setAttribute("aria-label",`Play TIKOONZ video ${playlistIndex}`);
+  h.addEventListener("click",()=>{
+    if(!heroPlayer) return;
+    currentIndex=playlistIndex;
+    heroPlayer.loadVideoById({videoId:PLAYLIST[playlistIndex],suggestedQuality:"hd1080"});
+    heroPlayer.unMute();
+    heroPlayer.setVolume(100);
+    heroSound.style.display="none";
+    document.querySelector(".cinema").scrollIntoView({behavior:"smooth",block:"start"});
+  });
+  grid.appendChild(h);
+});
+
 </script>
 </body></html>

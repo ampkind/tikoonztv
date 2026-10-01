@@ -74,3 +74,32 @@ document.addEventListener("DOMContentLoaded",()=>{
     });
   });
 });
+\n\n/* V37 — reliable YouTube thumbnails on mobile */
+(function(){
+  function installThumbFallback(img){
+    if(!img || img.dataset.thumbFallbackInstalled==='1') return;
+    img.dataset.thumbFallbackInstalled='1';
+    var tv=img.closest('.tv[data-id]');
+    if(!tv) return;
+    var id=tv.getAttribute('data-id');
+    var sources=[
+      'https://i.ytimg.com/vi/'+id+'/maxresdefault.jpg',
+      'https://i.ytimg.com/vi/'+id+'/hqdefault.jpg',
+      'https://img.youtube.com/vi/'+id+'/0.jpg'
+    ];
+    var step=0;
+    function next(){
+      step++;
+      if(step<sources.length) img.src=sources[step];
+    }
+    img.addEventListener('error',next);
+    img.loading='eager';
+    img.decoding='async';
+    if(!img.getAttribute('src')) img.src=sources[0];
+  }
+  function init(){
+    document.querySelectorAll('.tv[data-id] .screen img').forEach(installThumbFallback);
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
+  else init();
+})();

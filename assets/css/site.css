@@ -188,3 +188,22 @@ footer{padding:70px 24px;text-align:center;color:#555;font-size:10px;letter-spac
 @media(hover:none){
   .tv .hoverPreview{display:none!important}
 }
+\n\n/* V37 — mobile thumbnail visibility hardening */
+@media(max-width:760px){
+  .tv .screen{display:block!important;background:#050505!important;}
+  .tv .screen img{
+    display:block!important;
+    visibility:visible!important;
+    opacity:1!important;
+    width:100%!important;
+    height:100%!important;
+    min-width:100%!important;
+    min-height:100%!important;
+    object-fit:cover!important;
+    object-position:center!important;
+    position:absolute!important;
+    inset:0!important;
+    z-index:1!important;
+  }
+  .tv .screen::after{z-index:2;}
+}
